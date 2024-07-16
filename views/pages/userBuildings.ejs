@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все улучшения</title>
+    <script>
+        function sendPostRequest(id) {
+            // Создаем объект для отправки POST запроса
+            const xhr = new XMLHttpRequest();
+            const url = `https://91dc-37-214-19-231.ngrok-free.app/updateBuilding/${encodeURIComponent(id)}`; // Вставляем id в URL
+
+            // Открываем соединение
+            xhr.open("POST", url, true);
+
+            // Устанавливаем заголовки для POST запроса
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            // Параметры запроса (если они есть)
+            const params = ""; // В данном случае тело запроса пустое, так как id передается в URL
+
+            // Отправляем запрос
+            xhr.send(params);
+
+            // Обрабатываем ответ
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Успешный ответ
+                    window.location.reload()
+
+                    console.log(xhr.responseText);
+                }
+            };
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            text-align: center;
+            padding: 20px;
+        }
+        .card img {
+            width: 100%;
+            border-radius: 8px 8px 0 0;
+        }
+        .card h3 {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+        .card p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .card .price {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #333;
+        }
+        .card .income {
+            font-size: 0.9em;
+            color: #888;
+        }
+        .card button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .card button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+
+</head>
+<body>
+    <h1>Наши товары</h1>
+    <div class="card-container">
+        <button onclick="window.location.href='/allBuildings'">Вернуться назад</button>
+        <% for(var i=0; i < buildings.length; i++) { %>
+        <div class="card">
+            <img src="https://via.placeholder.com/200" alt="Карточка 1">
+            <h3> <%= buildings[i].name %> </h3>
+            <h4> <%= buildings[i].desc %> </h3>
+            <p class= "price" >The price is <%= `${buildings[i].cost}$`%>.</p>
+            <p class="income">The income is <%= `${buildings[i].income}`%></p>
+            <p>The lvl is <%= buildings[i].lvl %></p>
+            <button onclick="sendPostRequest('<%= buildings[i].name %>')">Улучшить</button>
+        </div>
+        
+        <% } %>
+
+    </div>
+</body>
+</html>
