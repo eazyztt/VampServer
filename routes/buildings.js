@@ -5,8 +5,8 @@ const buildingsLogic = require("../firebaseCRUD/buildingsCRUD");
 router.post("/buildings/:id", async (req, res) => {
   const id = req.params.id;
   console.log(id);
-  const userId = req.session.userId;
-  console.log(userId);
+  let userId = req.body.userIdName.id;
+
   try {
     await buildingsLogic.purchaseBuilding(userId, id);
     res.send("super");
@@ -16,18 +16,19 @@ router.post("/buildings/:id", async (req, res) => {
 });
 
 router.get("/userBuildings", async (req, res) => {
-  const buildings = await buildingsLogic.getUserBuildings(req.session.userId);
+  console.log(req.body);
+  let id = req.body.userIdName.id;
+  const buildings = await buildingsLogic.getUserBuildings(id);
   res.render("pages/userBuildings", { buildings });
 });
 
 router.post("/updateBuilding/:name", async (req, res) => {
   const name = req.params.name;
   console.log(name);
-  const userId = req.session.userId;
-  console.log(userId);
+  let id = req.body.userIdName.id;
   console.log("woooooooooork");
   try {
-    await buildingsLogic.updateBuilding(userId, name);
+    await buildingsLogic.updateBuilding(id, name);
     res.send("super");
   } catch (error) {
     console.log(error);
