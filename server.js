@@ -1,9 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const verifyInitData = require("./crypt");
+const verifyInitData = require("./auth/crypt");
 const session = require("express-session");
 const buildings1 = require("./routes/buildings");
+const userRoute = require("./routes/user");
 const db = require("./db");
 require("dotenv").config();
 
@@ -23,6 +24,8 @@ app.use(bodyParser.json());
 app.set("view engine", "ejs");
 
 app.use("/", buildings1);
+
+app.use("/user", userRoute);
 
 // Маршрут для обработки данных, отправленных с фронтенда
 
@@ -48,9 +51,20 @@ app.post("/telegram-data", async (req, res) => {
     const userRef = db.collection("users").doc(id);
     let userDoc = await userRef.get();
     if (!userDoc.exists) {
-      let money = 10000;
-      let lvl = 1;
-      await userRef.set({ username, id, money, lvl });
+      const money = 10000;
+      const lvl = 1;
+      const moneyForClaim = 100;
+      let lastClaim = Date.now();
+      const hours = lastClaim.getHours();
+      lastClaim.setHours(hours - 4);
+      await userRef.set({
+        username,
+        id,
+        money,
+        lvl,
+        moneyForClaim,
+        lastClaim,
+      });
       console.log("User data saved to Firestore");
     }
     req.session.tgUser = username;

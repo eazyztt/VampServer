@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const buildingsLogic = require("../buildingsCRUD");
+const buildingsLogic = require("../firebaseCRUD/buildingsCRUD");
 
 router.post("/buildings/:id", async (req, res) => {
   const id = req.params.id;
