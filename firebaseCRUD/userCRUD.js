@@ -18,7 +18,7 @@ async function updateMoneyAfterClaim(userId) {
       money: money,
       lastClaim: Date.now(),
     });
-    return userData;
+    return { userData };
   } else {
     return false;
   }

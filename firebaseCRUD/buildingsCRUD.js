@@ -49,9 +49,7 @@ async function purchaseBuilding(userId, buildingName) {
       buildings: userBuildings,
     });
 
-    console.log(
-      `Building ${buildingName} purchased successfully for user ${userId}`
-    );
+    return buildingName;
   } catch (error) {
     console.error("Error purchasing building:", error);
   }
@@ -160,9 +158,7 @@ async function updateBuilding(userId, buildingName) {
       buildings: userBuildings,
     });
 
-    console.log(
-      `Building ${buildingName} purchased successfully for user ${userId}`
-    );
+    return buildingName;
   } catch (error) {
     console.error("Error purchasing building:", error);
   }

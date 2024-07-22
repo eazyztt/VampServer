@@ -5,30 +5,30 @@ const buildingsLogic = require("../firebaseCRUD/buildingsCRUD");
 router.post("/buildings/:id", async (req, res) => {
   const id = req.params.id;
   console.log(id);
-  const userId = req.session.userId;
+  const userId = process.env.ID;
   console.log(userId);
   try {
-    await buildingsLogic.purchaseBuilding(userId, id);
-    res.send("super");
+    let purchasedBuilding = await buildingsLogic.purchaseBuilding(userId, id);
+    res.send({ purchasedBuilding });
   } catch (error) {
     console.log(error);
   }
 });
 
 router.get("/userBuildings", async (req, res) => {
-  const buildings = await buildingsLogic.getUserBuildings(req.session.userId);
-  res.render("pages/userBuildings", { buildings });
+  const buildings = await buildingsLogic.getUserBuildings(process.env.ID);
+  res.send({ buildings });
 });
 
 router.post("/updateBuilding/:name", async (req, res) => {
   const name = req.params.name;
   console.log(name);
-  const userId = req.session.userId;
+  const userId = process.env.ID;
   console.log(userId);
   console.log("woooooooooork");
   try {
-    await buildingsLogic.updateBuilding(userId, name);
-    res.send("super");
+    let updatedBulding = await buildingsLogic.updateBuilding(userId, name);
+    res.send({ updatedBulding });
   } catch (error) {
     console.log(error);
   }
@@ -37,7 +37,7 @@ router.post("/updateBuilding/:name", async (req, res) => {
 router.get("/buildings", async (req, res) => {
   let buildings = await buildingsLogic.getAllBuildings();
   if (buildings) {
-    res.render("pages/allBuildings", { buildings });
+    res.send({ buildings });
   } else {
     res.send("no buildings in fb");
   }
