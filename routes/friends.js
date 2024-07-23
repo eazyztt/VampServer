@@ -16,7 +16,7 @@ router.post("/:id", async (req, res) => {
     if (uniqeUser) {
       return res.send("new user is invited");
     } else {
-      return res.send("no such user or user is already registered");
+      return res.send("no such user or user already registered");
     }
   } catch (err) {
     res.send(err);

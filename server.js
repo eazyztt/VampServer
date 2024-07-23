@@ -27,8 +27,7 @@ app.get("/", async (req, res) => {
   let userDocRef = db.collection("users").doc(process.env.ID);
   let userDoc = await userDocRef.get();
   if (userDoc.exists) {
-    const { lvl, username, money } = userDoc.data();
-    res.send({ lvl, username, money });
+    res.send(userDoc.data());
   } else {
     res.status(400).send("error");
   }
