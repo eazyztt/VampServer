@@ -17,6 +17,21 @@ async function purchaseBuilding(userId, buildingName) {
     }
 
     const userData = userDoc.data();
+
+    let checkIfAlreadyPurchased = false;
+
+    if (userData.buildings) {
+      checkIfAlreadyPurchased = userData.buildings.find(
+        (el) => el.name === buildingName
+      );
+    }
+
+    if (checkIfAlreadyPurchased) {
+      return "Building is already purchased";
+    }
+
+    console.log(checkIfAlreadyPurchased);
+
     const buildingData = buildingDoc.data();
 
     console.log(buildingData.lvls);
@@ -29,7 +44,9 @@ async function purchaseBuilding(userId, buildingName) {
 
     // Deduct the cost of the building from the user's money
     const firstLvl = buildingData.lvls[0];
+
     const newMoney = userData.money - firstLvl.cost;
+    const newMoneyForClaim = userData.moneyForClaim + firstLvl.income;
 
     // Add the building to the user's buildings array
     const userBuildings = userData.buildings || [];
@@ -46,6 +63,7 @@ async function purchaseBuilding(userId, buildingName) {
     // Update the user's document in Firestore
     await userRef.update({
       money: newMoney,
+      moneyForClaim: newMoneyForClaim,
       buildings: userBuildings,
     });
 
@@ -139,6 +157,8 @@ async function updateBuilding(userId, buildingName) {
     // Deduct the cost of the building from the user's money
     const newMoney = userData.money - targetUserBuilding.cost;
 
+    const newMoneyForClaim = userData.moneyForClaim + targetUserBuilding.income;
+
     // Add the building to the user's buildings array
     const userBuildings = userData.buildings || [];
 
@@ -155,6 +175,7 @@ async function updateBuilding(userId, buildingName) {
     // Update the user's document in Firestore
     await userRef.update({
       money: newMoney,
+      moneyForClaim: newMoneyForClaim,
       buildings: userBuildings,
     });
 

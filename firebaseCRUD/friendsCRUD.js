@@ -2,11 +2,15 @@ const db = require("../db");
 
 const getFriendsSubFunc = async (userId) => {
   const userRef = db.collection("users").doc(userId);
-  const userDoc = await userRef.get();
-  const userData = userDoc.data();
-  let friends = userData.friendsArr || [];
 
-  return { friends, userRef, userData };
+  const userDoc = await userRef.get();
+  if (!userDoc.exists) {
+    return false;
+  }
+  const userData = userDoc.data();
+  let friends = userData?.friendsArr || [];
+
+  return { friends, userRef, userData, userDoc };
 };
 
 const inviteFriend = async (userId, friendId) => {
@@ -16,11 +20,14 @@ const inviteFriend = async (userId, friendId) => {
   }
 
   const newUser = await getFriendsSubFunc(friendId);
+  if (!newUser) {
+    return false;
+  }
   const newUserFriendsArr = newUser.friends || [];
   newUserFriendsArr.push(userId);
 
   newUser.userRef.update({
-    newUserFriendsArr,
+    friendsArr: newUserFriendsArr,
   });
 
   let friendsInvited = newUser.friendsInvited || 0;
