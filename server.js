@@ -7,8 +7,11 @@ const tasks = require("./routes/userTasks");
 const friends = require("./routes/friends");
 const db = require("./db");
 require("dotenv").config();
+const cors = require('cors');
 
 const port = process.env.PORT;
+
+app.use(cors());
 
 // Используем body-parser для парсинга JSON запросов
 app.use(bodyParser.json());
