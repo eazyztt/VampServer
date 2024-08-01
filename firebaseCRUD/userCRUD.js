@@ -24,6 +24,12 @@ async function updateMoneyAfterClaim(userId) {
   }
 }
 
+async function updateUserLvl(userId) {
+  const userRef = db.collection("users").doc(userId);
+  const userDoc = await userRef.get();
+  const userData = userDoc.data();
+}
+
 module.exports = {
   updateMoneyAfterClaim,
 };

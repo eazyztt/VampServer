@@ -1,21 +1,26 @@
 const express = require("express");
 const router = express.Router();
 const tasksCRUD = require("../firebaseCRUD/tasksCRUD");
+const tasksCRUD2 = require("../firebaseCRUD/tasksCRUD2");
 
 router.get("/", async (req, res) => {
-  let notCompletedTasks = await tasksCRUD.getTasks(process.env.ID);
-  res.send(notCompletedTasks);
+  let allTasks = await tasksCRUD2.getAllTasks(process.env.ID);
+  res.send(allTasks);
 });
 
 router.get("/userTasks", async (req, res) => {
-  let completedTasks = await tasksCRUD.getUserTasks(process.env.ID);
-  res.send(completedTasks);
+  let userTasks = await tasksCRUD2.getUserTasks(process.env.ID);
+  return res.send(userTasks);
 });
 
 router.post("/:taskId", async (req, res) => {
   let taskId = req.params.taskId;
-  let completedTasks = await tasksCRUD.completeTask(process.env.ID, taskId);
-  res.send(completedTasks);
+  let completedTask = await tasksCRUD2.completeTask(process.env.ID, taskId);
+  if (completedTask) {
+    return res.send(completedTask);
+  } else {
+    return res.send("Task is already completed or no such task");
+  }
 });
 
 module.exports = router;
