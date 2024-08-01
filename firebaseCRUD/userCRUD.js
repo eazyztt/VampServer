@@ -28,8 +28,39 @@ async function updateUserLvl(userId) {
   const userRef = db.collection("users").doc(userId);
   const userDoc = await userRef.get();
   const userData = userDoc.data();
+  const tasksRef = await db
+    .collection("tasks")
+    .where("lvl", "==", userData.lvl)
+    .get();
+
+  let allTasksForUserLvl = [];
+
+  tasksRef.forEach((doc) => {
+    allTasksForUserLvl.push(doc);
+  });
+
+  const userTasksRef = await userRef
+    .collection("tasks")
+    .where("lvl", "==", userData.lvl)
+    .get();
+  if (!userTasksRef.exists) {
+    return false;
+  }
+  let userTasks = [];
+  userTasksRef.forEach((doc) => {
+    userTasks.push(doc);
+  });
+  if (allTasksForUserLvl.length === userTasks.length) {
+    userRef.update({
+      lvl: (userData.lvl += 1),
+    });
+    return true;
+  } else {
+    return false;
+  }
 }
 
 module.exports = {
   updateMoneyAfterClaim,
+  updateUserLvl,
 };

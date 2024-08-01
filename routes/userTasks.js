@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const tasksCRUD = require("../firebaseCRUD/tasksCRUD");
 const tasksCRUD2 = require("../firebaseCRUD/tasksCRUD2");
 
 router.get("/", async (req, res) => {
