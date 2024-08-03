@@ -12,6 +12,16 @@ router.get("/userTasks", async (req, res) => {
   return res.send(userTasks);
 });
 
+router.post("/addTask/:taskId", async (req, res) => {
+  let taskId = req.params.taskId;
+  let completedTask = await tasksCRUD2.completeTask(process.env.ID, taskId);
+  if (completedTask) {
+    return res.send(completedTask);
+  } else {
+    return res.send("Task is already completed or no such task");
+  }
+});
+
 router.post("/:taskId", async (req, res) => {
   let taskId = req.params.taskId;
   let completedTask = await tasksCRUD2.completeTask(process.env.ID, taskId);

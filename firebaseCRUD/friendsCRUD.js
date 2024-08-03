@@ -39,9 +39,10 @@ const inviteFriend = async (userId, friendId) => {
     friendsArr,
     friendsInvited,
   });
-
   return true;
 };
+
+const generateHashForUserId = async (userId) => {};
 
 const getFriends = async (userId) => {
   const dbUsers = db.collection("users");
