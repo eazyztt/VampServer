@@ -1,5 +1,59 @@
 const db = require("../db");
 
+const getUserDB = async (userId) => {
+  const userRef = db.collection("users").doc(userId);
+  const userDoc = await userRef.get();
+  if (!userDoc.exists) {
+    console.log("no user");
+    return false;
+  }
+  const userData = await userDoc.data();
+  return userData;
+};
+
+const getUserRefAndDoc = async (userId) => {
+  const userRef = db.collection("users").doc(userId);
+  const userDoc = await userRef.get();
+  if (!userDoc.exists) {
+    console.log("no user");
+    return false;
+  }
+  return { userRef, userDoc };
+};
+
+const checkIfUserAlreadyInDB = async (userId, newUserId) => {
+  const userDB = await getUserRefAndDoc(userId);
+  const newUserDB = await getUserRefAndDoc(newUserId);
+  const userData = userDB.userDoc.data();
+  const newUserData = newUserDB.userDoc.data();
+  const userFriends = userData.friends;
+  if (userFriends.includes(newUserData.id)) {
+    return false;
+  }
+  return true;
+};
+
+const updateUserDoc = async (userId, data) => {
+  const userRef = db.collection("users").doc(userId);
+  const userDoc = await userRef.get();
+  if (!userDoc.exists) {
+    return false;
+  }
+  userRef.update(data);
+};
+
+const setUserDoc = async (userId, data) => {
+  const userRef = db.collection("users").doc(userId);
+  const userDoc = await userRef.get();
+  if (userDoc.exists) {
+    return false;
+  }
+  await userRef.set({
+    ...data,
+  });
+  return true;
+};
+
 async function updateMoneyAfterClaim(userId) {
   const userRef = db.collection("users").doc(userId);
   const userDoc = await userRef.get();
@@ -63,4 +117,8 @@ async function updateUserLvl(userId) {
 module.exports = {
   updateMoneyAfterClaim,
   updateUserLvl,
+  getUserDB,
+  updateUserDoc,
+  setUserDoc,
+  checkIfUserAlreadyInDB,
 };
