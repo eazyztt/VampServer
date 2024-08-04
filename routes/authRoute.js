@@ -1,5 +1,6 @@
 const express = require("express");
 const cryptoId = require("../utilities/cryptoId");
+const db = require("../db");
 
 const router = express.Router();
 
@@ -24,9 +25,10 @@ const initUser = (id, username) => {
 };
 
 router.post("/telegram-data", async (req, res) => {
-  const telegramData = req.body;
-  console.log(telegramData.initData);
-  let { username, id } = verifyInitData(telegramData.initData);
+  //const telegramData = req.body;
+  //console.log(telegramData.initData);
+  //let { username, id } = verifyInitData(telegramData.initData);
+  let { username, id } = { username: "smthabout_name", id: process.env.ID };
   if (username && id) {
     const userRef = db.collection("users").doc(id);
     let userDoc = await userRef.get();
@@ -35,6 +37,7 @@ router.post("/telegram-data", async (req, res) => {
       await userRef.set(newUser);
       console.log("User data saved to Firestore");
     }
+    console.log(username);
     req.session.tgUser = username;
     req.session.userId = id;
     res.redirect("/");

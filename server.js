@@ -10,6 +10,7 @@ const db = require("./db");
 const userCRUD = require("./firebaseCRUD/userCRUD");
 const checkURLHash = require("./utilities/checkURLHash");
 const cryptoId = require("./utilities/cryptoId");
+const authRouter = require("./routes/authRoute");
 require("dotenv").config();
 const cors = require("cors");
 
@@ -28,6 +29,8 @@ app.use("/user", userRoute);
 app.use("/tasks", tasks);
 
 app.use("/friends", friends);
+
+app.use("/auth", authRouter);
 // Маршрут для обработки данных, отправленных с фронтенда
 
 app.get("/", async (req, res) => {
@@ -52,53 +55,53 @@ app.get("/userHashURL", async (req, res) => {
 });
 
 //хэш добавляется к URL адресу, по примеру localhost:3000/473&327183HdgjdD
-app.post("/:hash", async (req, res) => {
-  const hash = req.params.hash;
-  const decrypt = cryptoId.decrypt(hash, process.env.SECRET_KEY_ID);
-  const user = await userCRUD.getUserDB(decrypt);
+// app.post("/:hash", async (req, res) => {
+//   const hash = req.params.hash;
+//   const decrypt = cryptoId.decrypt(hash, process.env.SECRET_KEY_ID);
+//   const user = await userCRUD.getUserDB(decrypt);
 
-  if (!user) {
-    return res.send("No such user in db");
-  }
+//   if (!user) {
+//     return res.send("No such user in db");
+//   }
 
-  let userFriends = user.friends;
-  let newUserFriends = [];
-  newUserFriends.push(user.id);
+//   let userFriends = user.friends;
+//   let newUserFriends = [];
+//   newUserFriends.push(user.id);
 
-  const existingUser = await userCRUD.setUserDoc("470676178", {
-    id: "470676178",
-    friends: newUserFriends,
-    lvl: 1,
-    money: 1000,
-    hash: cryptoId.encrypt("470676178", process.env.SECRET_KEY_ID),
-  });
+//   const existingUser = await userCRUD.setUserDoc("470676178", {
+//     id: "470676178",
+//     friends: newUserFriends,
+//     lvl: 1,
+//     money: 1000,
+//     hash: cryptoId.encrypt("470676178", process.env.SECRET_KEY_ID),
+//   });
 
-  if (!existingUser) {
-    return res.send("user is already in a game");
-  }
+//   if (!existingUser) {
+//     return res.send("user is already in a game");
+//   }
 
-  const newUser = await userCRUD.getUserDB("470676178");
+//   const newUser = await userCRUD.getUserDB("470676178");
 
-  const checkIfUserAlreadyFriend = await userCRUD.checkIfUserAlreadyInDB(
-    user.id,
-    newUser.id
-  );
+//   const checkIfUserAlreadyFriend = await userCRUD.checkIfUserAlreadyInDB(
+//     user.id,
+//     newUser.id
+//   );
 
-  if (!checkIfUserAlreadyFriend) {
-    return res.send("user is already in your friend list");
-  }
+//   if (!checkIfUserAlreadyFriend) {
+//     return res.send("user is already in your friend list");
+//   }
 
-  userFriends.push(newUser.id);
+//   userFriends.push(newUser.id);
 
-  let friendsInvited = (user.friendsInvited += 1);
+//   let friendsInvited = (user.friendsInvited += 1);
 
-  await userCRUD.updateUserDoc(decrypt, {
-    friendsInvited: friendsInvited,
-    friends: userFriends,
-  });
+//   await userCRUD.updateUserDoc(decrypt, {
+//     friendsInvited: friendsInvited,
+//     friends: userFriends,
+//   });
 
-  return res.send(newUser);
-});
+//   return res.send(newUser);
+// });
 
 // Запуск сервера
 app.listen(port, () => {
