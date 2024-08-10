@@ -5,7 +5,7 @@ const mainAuthFunc = require("../utilities/mainAuthFunc");
 
 const router = express.Router();
 
-app.get("/", async (req, res) => {
+router.get("/", async (req, res) => {
   const userId = req.session.userId;
   let userDocRef = db.collection("users").doc(userId);
   let userDoc = await userDocRef.get();
@@ -16,7 +16,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.post("/", async (req, res) => {
+router.post("/", async (req, res) => {
   const telegramData = req.body;
   const newUserId = await mainAuthFunc(telegramData.initData);
   if (newUserId) {
@@ -33,7 +33,7 @@ app.post("/", async (req, res) => {
   }
 });
 
-app.post("/:userHashURL", async (req, res) => {
+router.post("/:userHashURL", async (req, res) => {
   const hash = req.params.userHashURL;
   if (!hash) {
     return res.send("no user in DB?");
