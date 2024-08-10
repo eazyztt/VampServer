@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require("express-session");
 const bodyParser = require("body-parser");
 const app = express();
 const buildings1 = require("./routes/buildings");
@@ -17,6 +18,15 @@ const cors = require("cors");
 const port = process.env.PORT;
 
 app.use(cors());
+
+app.use(
+  session({
+    secret: process.env.COOKIE_KEY, //секретный ключ
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false },
+  })
+);
 
 // Используем body-parser для парсинга JSON запросов
 app.use(bodyParser.json());
