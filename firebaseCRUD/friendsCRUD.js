@@ -50,16 +50,18 @@ const getFriends = async (userId) => {
   const userDoc = await userRef.get();
   const userData = userDoc.data();
   const friendsWithMoney = [];
-  const friendsRefs = [];
   if (!userData.friends) {
     return [];
   }
-  userData.friends.forEach(async (el) => {
-    friendsWithMoney.push(await dbUsers.doc(el).get().data());
-  });
+
+  for (const el of userData.friends) {
+    const doc = await dbUsers.doc(el).get();
+    friendsWithMoney.push(doc.data());
+  }
+
   const arrNameMoney = [];
   friendsWithMoney.forEach((el) => {
-    arrNameMoney.push({ name: el.name, money: el.money });
+    arrNameMoney.push({ name: el.username, money: el.money });
   });
   return arrNameMoney;
 };
