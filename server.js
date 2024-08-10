@@ -12,6 +12,8 @@ const userCRUD = require("./firebaseCRUD/userCRUD");
 const checkURLHash = require("./utilities/checkURLHash");
 const cryptoId = require("./utilities/cryptoId");
 const authRouter = require("./routes/authRoute");
+const userModel = require("./utilities/userModel");
+const mainAuthFunc = require("./utilities/mainAuthFunc");
 require("dotenv").config();
 const cors = require("cors");
 
@@ -43,26 +45,18 @@ app.use("/friends", friends);
 app.use("/auth", authRouter);
 // Маршрут для обработки данных, отправленных с фронтенда
 
-app.get("/", async (req, res) => {
-  let userDocRef = db.collection("users").doc(process.env.ID);
-  let userDoc = await userDocRef.get();
-  if (userDoc.exists) {
-    const hash = cryptoId.encrypt(process.env.ID, process.env.SECRET_KEY_ID);
-    await cryptoId.hashToDB(process.env.ID, hash);
-    res.send(userDoc.data());
-  } else {
-    res.status(400).send("error");
-  }
-});
-
 //получение хэша из БД
-app.get("/userHashURL", async (req, res) => {
-  const hash = await cryptoId.hashFromDB(process.env.ID);
-  if (!hash) {
-    return res.send("no user in DB?");
-  }
-  return res.send(hash);
-});
+
+// app.post("/", async (req, res) => {
+//   const telegramData = req.body;
+//   const userId = await mainAuthFunc(telegramData.initData);
+//   if (userId) {
+//     req.session.userId = userId;
+//     return res.redirect("/");
+//   } else {
+//     res.send("errorAuth");
+//   }
+// });
 
 //хэш добавляется к URL адресу, по примеру localhost:3000/473&327183HdgjdD
 // app.post("/:hash", async (req, res) => {

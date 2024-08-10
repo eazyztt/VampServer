@@ -22,4 +22,13 @@ router.post("/updateLvl", async (req, res) => {
   }
 });
 
+router.get("/hash", async (req, res) => {
+  const id = req.session.userId;
+  const user = await userCRUD.getUserDB(id);
+  if (!user) {
+    return res.send("error");
+  }
+  return res.send(`localhost:3001//user/${user.hash}`);
+});
+
 module.exports = router;
