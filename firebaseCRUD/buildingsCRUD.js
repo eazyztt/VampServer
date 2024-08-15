@@ -3,9 +3,11 @@ const db = require("../db");
 async function purchaseBuilding(userId, buildingName) {
   try {
     const userRef = db.collection("users").doc(userId);
+    const userImprovesRef = userRef.collection("improvements");
     const buildingRef = db.collection("buildings").doc(buildingName);
 
     const userDoc = await userRef.get();
+    const userImprovesDoc = await userImprovesRef.get();
     const buildingDoc = await buildingRef.get();
 
     if (!userDoc.exists) {
@@ -16,7 +18,20 @@ async function purchaseBuilding(userId, buildingName) {
       throw new Error(`Building with name ${buildingName} not found`);
     }
 
+    const buildingData = buildingDoc.data();
+
     const userData = userDoc.data();
+    const userImprovesData = userImprovesDoc.data();
+    const targetImprovementRef = userImprovesRef.where(
+      "name",
+      "==",
+      buildingName
+    );
+    const targetImprovementRefDoc = await targetImprovementRef.get();
+    if (!targetImprovementRefDoc.exists && userData.money < buildingData.cost) {
+      return false;
+    }
+    const targetImprovementsData = targetImprovementRefDoc[0].data();
 
     let checkIfAlreadyPurchased = false;
 
@@ -31,8 +46,6 @@ async function purchaseBuilding(userId, buildingName) {
     }
 
     console.log(checkIfAlreadyPurchased);
-
-    const buildingData = buildingDoc.data();
 
     console.log(buildingData.lvls);
 
