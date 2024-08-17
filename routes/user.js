@@ -14,6 +14,17 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/hash", async (req, res) => {
+  const userId = process.env.ID;
+  let userDocRef = db.collection("users").doc(userId);
+  let userDoc = await userDocRef.get();
+  if (userDoc.exists) {
+    return res.send(userDoc.data().hash);
+  } else {
+    return res.status(400).send("no user in DB");
+  }
+});
+
 router.post("/claim", async (req, res) => {
   const id = process.env.ID;
   let resultBool = await userCRUD.updateMoneyAfterClaim(id);

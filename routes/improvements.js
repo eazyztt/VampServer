@@ -19,8 +19,8 @@ router.post("/purchase/:id", async (req, res) => {
     userId,
     improvementId
   );
-  if (!purchaseImprovement) {
-    return res.send("error");
+  if (purchaseImprovement.bool === false) {
+    return res.send(purchaseImprovement.text);
   }
   return res.send("purchased successfully");
 });
@@ -32,8 +32,8 @@ router.post("/update/:id", async (req, res) => {
     userId,
     improvementId
   );
-  if (!updateImprovement) {
-    return res.send("error");
+  if (updateImprovement.bool === false) {
+    return res.send(updateImprovement.text);
   }
   return res.send("updated successfully");
 });

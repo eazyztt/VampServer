@@ -48,7 +48,7 @@ const purchaseImprovement = async (userId, improvementId) => {
   const userData = await getUserDB(userId);
   const improvement = await getImprovementById(improvementId);
   if (!improvement) {
-    return false;
+    return { bool: false, text: "no such improvement" };
   }
   const firstLvlImprovement = improvement.lvls[0];
 
@@ -68,7 +68,10 @@ const purchaseImprovement = async (userId, improvementId) => {
   );
 
   if (improvementExists) {
-    return false;
+    return {
+      bool: false,
+      text: "you have already purchased this improvement, it is better to update it",
+    };
   }
   if (firstLvlImprovement.cost <= userData.money) {
     // Обновление задачи, помечая её как завершенную
@@ -77,9 +80,9 @@ const purchaseImprovement = async (userId, improvementId) => {
       desc: improvement.desc,
       name: improvement.name,
     });
-    return true;
+    return { bool: true };
   } else {
-    return false;
+    return { bool: false, text: "Not enough money" };
   }
 };
 
@@ -88,7 +91,7 @@ const updateImprovement = async (userId, improvementId) => {
   const userData = await getUserDB(userId);
   const improvement = await getImprovementById(improvementId);
   if (!improvement) {
-    return false;
+    return { bool: false, text: "No such improvement" };
   }
 
   // Ссылка на документ задачи пользователя
@@ -109,7 +112,7 @@ const updateImprovement = async (userId, improvementId) => {
   const nextLvl = lvls.find((lvl) => lvl.lvl == currentLvlImprovement + 1);
 
   if (!nextLvl) {
-    return false;
+    return { bool: false, text: "There are no more lvls" };
   }
 
   if (nextLvl.cost <= userData.money) {
@@ -119,9 +122,9 @@ const updateImprovement = async (userId, improvementId) => {
       cost: nextLvl.cost,
       income: nextLvl.income,
     });
-    return true;
+    return { bool: true, text: "You updated successfully!" };
   } else {
-    return false;
+    return { bool: false, text: "Not enough money" };
   }
 };
 
