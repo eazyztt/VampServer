@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const tasksCRUD2 = require("../firebaseCRUD/tasksCRUD2");
+const tasksCRUD2 = require("../firebaseCRUD/tasksCRUD");
 
 router.get("/", async (req, res) => {
   let allTasks = await tasksCRUD2.getAllTasks(process.env.ID);

@@ -1,6 +1,29 @@
 const express = require("express");
 const router = express.Router();
 const userCRUD = require("../firebaseCRUD/userCRUD");
+const db = require("../db");
+
+router.get("/", async (req, res) => {
+  const userId = process.env.ID;
+  let userDocRef = db.collection("users").doc(userId);
+  let userDoc = await userDocRef.get();
+  if (userDoc.exists) {
+    return res.send(userDoc.data());
+  } else {
+    return res.status(400).send("error");
+  }
+});
+
+router.get("/hash", async (req, res) => {
+  const userId = process.env.ID;
+  let userDocRef = db.collection("users").doc(userId);
+  let userDoc = await userDocRef.get();
+  if (userDoc.exists) {
+    return res.send(userDoc.data().hash);
+  } else {
+    return res.status(400).send("no user in DB");
+  }
+});
 
 router.post("/claim", async (req, res) => {
   const id = process.env.ID;
@@ -20,15 +43,6 @@ router.post("/updateLvl", async (req, res) => {
   } else {
     return res.send("You need to complete all tasks");
   }
-});
-
-router.get("/hash", async (req, res) => {
-  const id = req.session.userId;
-  const user = await userCRUD.getUserDB(id);
-  if (!user) {
-    return res.send("error");
-  }
-  return res.send(`localhost:3001//user/${user.hash}`);
 });
 
 module.exports = router;

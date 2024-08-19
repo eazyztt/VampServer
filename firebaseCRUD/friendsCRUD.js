@@ -1,72 +1,81 @@
 const db = require("../db");
 
-const getFriendsSubFunc = async (userId) => {
-  const userRef = db.collection("users").doc(userId);
-
-  const userDoc = await userRef.get();
-  if (!userDoc.exists) {
-    return false;
-  }
-  const userData = userDoc.data();
-  let friends = userData?.friendsArr || [];
-
-  return { friends, userRef, userData, userDoc };
-};
-
-const inviteFriend = async (userId, friendId) => {
-  const user = await getFriendsSubFunc(userId);
-  if (user.friends.includes(friendId)) {
-    return false;
-  }
-
-  const newUser = await getFriendsSubFunc(friendId);
-  if (!newUser) {
-    return false;
-  }
-  const newUserFriendsArr = newUser.friends || [];
-  newUserFriendsArr.push(userId);
-
-  newUser.userRef.update({
-    friendsArr: newUserFriendsArr,
-  });
-
-  let friendsInvited = newUser.friendsInvited || 0;
-  friendsInvited += 1;
-  const friendsArr = user.friends || [];
-  friendsArr.push(friendId);
-
-  user.userRef.update({
-    friendsArr,
-    friendsInvited,
-  });
-  return true;
-};
-
-const generateHashForUserId = async (userId) => {};
-
 const getFriends = async (userId) => {
-  const dbUsers = db.collection("users");
-  const userRef = dbUsers.doc(userId);
+  const friendsRef = db.collection("users").doc(userId).collection("friends");
+  const friendsDoc = await friendsRef.get();
+
+  let userFriends = [];
+
+  if (!friendsDoc.exists) {
+    userFriends = [];
+  }
+
+  friendsDoc.forEach((doc) => {
+    userFriends.push({
+      id: doc.id,
+      ...doc.data(),
+    });
+  });
+
+  return userFriends;
+};
+
+const addFriend = async (userId, friendId) => {
+  const userFriendsRef = db
+    .collection("users")
+    .doc(userId)
+    .collection("friends")
+    .doc(friendId);
+
+  const friends = await getFriends(friendId);
+
+  const friend = friends.find((friend) => (friend.id = friendId));
+
+  if (friend) {
+    return false;
+  }
+
+  const invitedFriendRef = db.collection("users").doc(friendId);
+  const invitedFriendFriendsRef = db
+    .collection("users")
+    .doc(friendId)
+    .collection("friends")
+    .doc(userId);
+
+  const userRef = db.collection("users").doc(userId);
   const userDoc = await userRef.get();
   const userData = userDoc.data();
-  const friendsWithMoney = [];
-  if (!userData.friends) {
-    return [];
+
+  const invitedFriendDoc = await invitedFriendRef.get();
+
+  if (!invitedFriendDoc.exists) {
+    return false;
   }
 
-  for (const el of userData.friends) {
-    const doc = await dbUsers.doc(el).get();
-    friendsWithMoney.push(doc.data());
-  }
+  const invitedFriendData = invitedFriendDoc.data();
 
-  const arrNameMoney = [];
-  friendsWithMoney.forEach((el) => {
-    arrNameMoney.push({ name: el.username, money: el.money });
+  await userFriendsRef.set({
+    username: invitedFriendData.username,
+    id: invitedFriendData.id,
+    createdAt: Date.now(),
+    invitedByMe: true,
   });
-  return arrNameMoney;
+
+  await userRef.update({
+    friendsInvited: userData.friendsInvited + 1,
+  });
+
+  await invitedFriendFriendsRef.set({
+    username: userData.username,
+    id: userData.id,
+    createdAt: Date.now(),
+    invitedByMe: false,
+  });
+
+  return true;
 };
 
 module.exports = {
   getFriends,
-  inviteFriend,
+  addFriend,
 };
