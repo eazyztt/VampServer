@@ -19,7 +19,7 @@ router.get("/hash", async (req, res) => {
   let userDocRef = db.collection("users").doc(userId);
   let userDoc = await userDocRef.get();
   if (userDoc.exists) {
-    return res.send(userDoc.data().hash);
+    return res.send({ hash: userDoc.data().hash });
   } else {
     return res.status(400).send("no user in DB");
   }
