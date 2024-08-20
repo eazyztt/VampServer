@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userCRUD = require("../firebaseCRUD/userCRUD");
 const db = require("../db");
+const { message } = require("telegraf/filters");
 
 router.get("/", async (req, res) => {
   const userId = process.env.ID;
@@ -39,9 +40,9 @@ router.post("/updateLvl", async (req, res) => {
   const id = process.env.ID;
   let updatedLvl = await userCRUD.updateUserLvl(id);
   if (updatedLvl) {
-    return res.send("ok");
+    return res.send({ message: "ok" });
   } else {
-    return res.send("You need to complete all tasks");
+    return res.send({ message: "You need to complete all tasks" });
   }
 });
 
