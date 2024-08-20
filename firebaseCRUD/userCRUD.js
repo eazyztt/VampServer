@@ -97,17 +97,22 @@ async function updateUserLvl(userId) {
     .collection("tasks")
     .where("lvl", "==", userData.lvl)
     .get();
-  if (!userTasksRef.exists) {
-    return false;
-  }
+
   let userTasks = [];
   userTasksRef.forEach((doc) => {
     userTasks.push(doc);
   });
+
+  console.log(allTasksForUserLvl.length, userTasks.length);
+  if ((allTasksForUserLvl.length == 0, userTasks.length == 0)) {
+    return false;
+  }
   if (allTasksForUserLvl.length === userTasks.length) {
-    userRef.update({
+    await userRef.update({
       lvl: (userData.lvl += 1),
     });
+    allTasksForUserLvl = [];
+    userTasks = [];
     return true;
   } else {
     return false;
