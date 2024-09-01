@@ -7,8 +7,11 @@ const userRoute = require("./routes/user");
 const tasks = require("./routes/userTasks");
 const friends = require("./routes/friends");
 const authRouter = require("./routes/authRoute");
+const mongoose = require("mongoose");
 require("dotenv").config();
 const cors = require("cors");
+const TaskService = require("./mongo/services/taskService");
+const UserService = require("./mongo/services/userService");
 
 const port = process.env.PORT;
 
@@ -37,7 +40,30 @@ app.use("/friends", friends);
 
 app.use("/auth", authRouter);
 
-// Запуск сервера
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+async function connectToDB() {
+  return mongoose.connect(process.env.MONGO_URL);
+}
+
+connectToDB()
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Server is running on http://localhost:${port}`);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+//TaskService.create({ title: "second", description: "second" });
+
+// UserService.create({
+//   name: "Steph",
+//   telegramId: "143294783",
+// });
+
+//UserService.completeTask();
+async function anon() {
+  return await UserService.getTask();
+}
+
+anon();
