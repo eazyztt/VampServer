@@ -7,14 +7,33 @@ const userSchema = mongoose.Schema({
   telegramId: { type: String, required: true, unique: true },
   money: { type: Number, default: 1000 },
   readyToClaim: { type: Boolean, default: true },
-  lastClaim: { type: Date },
-  moneyForClaim: { type: Number },
+  lastClaim: {
+    type: Date,
+    default: new Date("September 02, 2005 16:30:00"),
+  },
+  moneyForClaim: { type: Number, default: 0 },
   hash: { type: String },
+  improves: [
+    {
+      _id: false,
+      improveId: { type: ObjectId, ref: "Improve" },
+      lvl: { type: Number },
+      price: { type: Number },
+      income: { type: Number },
+    },
+  ],
   tasks: [
     {
       _id: false,
-      task: { type: String, ref: "Task" },
+      id: { type: String, ref: "Task" },
       isCompleted: { type: Boolean, default: false },
+    },
+  ],
+  friends: [
+    {
+      name: { type: String },
+      id: { type: ObjectId, ref: "User" },
+      invitedByMe: { type: Boolean },
     },
   ],
 });

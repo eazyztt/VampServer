@@ -1,34 +1,31 @@
 const express = require("express");
 const router = express.Router();
-const tasksCRUD2 = require("../firebaseCRUD/tasksCRUD");
+const TaskService = require("../mongo/services/taskService");
 
 router.get("/", async (req, res) => {
-  let allTasks = await tasksCRUD2.getAllTasks(process.env.ID);
-  res.send(allTasks);
+  let allTasks = await TaskService.getAllTasks();
+  res.status(200).send(allTasks);
 });
 
 router.get("/userTasks", async (req, res) => {
-  let userTasks = await tasksCRUD2.getUserTasks(process.env.ID);
-  return res.send(userTasks);
-});
-
-router.post("/addTask/:taskId", async (req, res) => {
-  let taskId = req.params.taskId;
-  let completedTask = await tasksCRUD2.completeTask(process.env.ID, taskId);
-  if (completedTask) {
-    return res.send(completedTask);
-  } else {
-    return res.send("Task is already completed or no such task");
+  try {
+    const userTasks = await TaskService.getUserTasks(process.env.ID);
+    res.status(200).json(userTasks);
+  } catch (err) {
+    res.status(400).send(err.message);
   }
 });
 
 router.post("/:taskId", async (req, res) => {
-  let taskId = req.params.taskId;
-  let completedTask = await tasksCRUD2.completeTask(process.env.ID, taskId);
-  if (completedTask) {
-    return res.send(completedTask);
-  } else {
-    return res.send("Task is already completed or no such task");
+  const taskId = req.params.taskId;
+  try {
+    const completedTask = await TaskService.completeTask(
+      process.env.ID,
+      taskId
+    );
+    return res.status(200).send(completedTask);
+  } catch (err) {
+    return res.status(404).send(err.message);
   }
 });
 

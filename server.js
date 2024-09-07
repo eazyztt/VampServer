@@ -12,6 +12,8 @@ require("dotenv").config();
 const cors = require("cors");
 const TaskService = require("./mongo/services/taskService");
 const UserService = require("./mongo/services/userService");
+const ImproveService = require("./mongo/services/improveService");
+const { Telegram } = require("telegraf");
 
 const port = process.env.PORT;
 
@@ -62,8 +64,22 @@ connectToDB()
 // });
 
 //UserService.completeTask();
+
 async function anon() {
-  return await UserService.getTask();
+  await UserService.create({
+    name: "Stephoo",
+    telegramId: "31290382931",
+  });
 }
 
-anon();
+// async function anon2(id) {
+//   try {
+//     await UserService.updateImprovement(id);
+//   } catch (err) {
+//     console.error(err.message);
+//   }
+// }
+
+// anon2("66db384e021545383d94fb54", true);
+
+//anon();

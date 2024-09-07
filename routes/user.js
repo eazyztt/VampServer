@@ -1,16 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const userCRUD = require("../firebaseCRUD/userCRUD");
-const db = require("../db");
+const userService = require("../mongo/services/userService");
 
 router.get("/", async (req, res) => {
   const userId = process.env.ID;
-  let userDocRef = db.collection("users").doc(userId);
-  let userDoc = await userDocRef.get();
-  if (userDoc.exists) {
-    return res.send(userDoc.data());
-  } else {
-    return res.status(400).send("error");
+  try {
+    const user = await userService.getUserInfo(userId);
+    return res.status(200).json(user);
+  } catch (err) {
+    return res.status(400).send(err.message);
   }
 });
 
