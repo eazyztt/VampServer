@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/telegram-data", async (req, res) => {
   const telegramData = req.body;
   const newUserId = await mainAuthFunc(telegramData.initData);
   if (newUserId) {
