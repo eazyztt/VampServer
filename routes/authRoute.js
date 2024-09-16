@@ -22,6 +22,8 @@ router.post("/telegram-data", async (req, res) => {
   if (newUserId) {
     req.session.userId = newUserId;
   }
+  console.log(newUserId);
+
   let userDocRef = db.collection("users").doc(newUserId);
   let userDoc = await userDocRef.get();
   if (userDoc.exists) {
