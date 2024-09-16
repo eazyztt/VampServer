@@ -3,6 +3,8 @@ require("dotenv").config();
 
 const verifyInitData = (telegramInitData) => {
   const urlParams = new URLSearchParams(telegramInitData);
+  console.log(urlParams);
+
   //console.log(urlParams);
   let username = urlParams.get("user").split(",")[3].split(":")[1];
   let id = urlParams.get("user").split(",")[0].split(":")[1];
