@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const UserService = require("../mongo/services/userService");
 const userModel = require("../mongo/models/userModel");
-const verifyInitData = require("../auth");
+const verifyInitData = require("../auth/auth");
 
 router.get("/", async (req, res) => {
   const userId = req.session.id;
