@@ -7,6 +7,7 @@ const userRoute = require("./routes/user");
 const tasks = require("./routes/userTasks");
 const friends = require("./routes/friends");
 const authRouter = require("./routes/authRouteTest");
+const tgData = require("./routes/tgData");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const cors = require("cors");
@@ -32,6 +33,8 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
+
+app.use("/telegram-data", tgData);
 
 app.use("/", improvements);
 
