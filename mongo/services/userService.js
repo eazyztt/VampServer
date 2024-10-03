@@ -16,11 +16,9 @@ class UserService {
       throw new Error("No such user in our database");
     }
     return {
-      _id: user._id,
-      name: user.name,
-      telegramId: user.telegramId,
+      username: user.name,
       money: user.money,
-      moneyForClaim: user.moneyForClaim,
+      lastClaim: user.moneyForClaim,
       lvl: user.lvl,
     };
   }
