@@ -18,6 +18,8 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const telegramData = req.body;
+  console.log(telegramData);
+
   const newUserId = await mainAuthFunc(telegramData.initData);
   if (newUserId) {
     req.session.userId = newUserId;
