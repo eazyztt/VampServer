@@ -4,7 +4,6 @@ const { ObjectId } = require("mongodb");
 
 const userSchema = mongoose.Schema({
   name: { type: String, required: true },
-  telegramId: { type: String, required: true, unique: true },
   money: { type: Number, default: 1000 },
   readyToClaim: { type: Boolean, default: true },
   lastClaim: {
