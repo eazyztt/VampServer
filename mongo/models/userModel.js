@@ -13,6 +13,7 @@ const userSchema = mongoose.Schema({
   },
   moneyForClaim: { type: Number, default: 0 },
   hash: { type: String },
+  lvl: { type: Number },
   improves: [
     {
       _id: false,
@@ -26,7 +27,6 @@ const userSchema = mongoose.Schema({
     {
       _id: false,
       id: { type: String, ref: "Task" },
-      isCompleted: { type: Boolean, default: false },
     },
   ],
   friends: [

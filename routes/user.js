@@ -3,7 +3,7 @@ const router = express.Router();
 const userService = require("../mongo/services/userService");
 
 router.get("/", async (req, res) => {
-  const userId = process.env.ID;
+  const userId = req.session.id;
   try {
     const user = await userService.getUserInfo(userId);
     return res.status(200).json(user);
@@ -13,33 +13,32 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/hash", async (req, res) => {
-  const userId = process.env.ID;
-  let userDocRef = db.collection("users").doc(userId);
-  let userDoc = await userDocRef.get();
-  if (userDoc.exists) {
-    return res.send({ hash: userDoc.data().hash });
-  } else {
-    return res.status(400).send("no user in DB");
+  const userId = req.session.id;
+  try {
+    const hash = await userService.getHash(userId);
+    return res.send(hash);
+  } catch (err) {
+    return res.send(err);
   }
 });
 
 router.post("/claim", async (req, res) => {
-  const id = process.env.ID;
-  let resultBool = await userCRUD.updateMoneyAfterClaim(id);
-  if (resultBool) {
-    res.send({ resultBool });
-  } else {
-    res.send("not ready to claim");
+  const id = req.session.id;
+  const user = await userService.claimMoney(id);
+  if (user) {
+    return res.send(user);
   }
+
+  return res.send("too early to claim money");
 });
 
 router.post("/updateLvl", async (req, res) => {
-  const id = process.env.ID;
-  let updatedLvl = await userCRUD.updateUserLvl(id);
-  if (updatedLvl) {
-    return res.send("ok");
-  } else {
-    return res.send("You need to complete all tasks");
+  const id = req.session.id;
+  try {
+    const userLvlUpdate = await userService.updateUserLvl(id);
+    return res.send(userLvlUpdate);
+  } catch (err) {
+    return res.send(err);
   }
 });
 

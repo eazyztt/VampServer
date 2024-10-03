@@ -6,7 +6,7 @@ const improvements = require("./routes/improvementRoute");
 const userRoute = require("./routes/user");
 const tasks = require("./routes/userTasks");
 const friends = require("./routes/friends");
-const authRouter = require("./routes/authRoute");
+const authRouter = require("./routes/authRouteTest");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const cors = require("cors");

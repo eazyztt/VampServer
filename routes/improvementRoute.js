@@ -8,13 +8,13 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/userImproves", async (req, res) => {
-  const userId = process.env.ID;
+  const userId = req.session.id;
   const allUserImproves = await improveService.getUserImprovements(userId);
   res.status(200).json(allUserImproves);
 });
 
 router.post("/purchase/:id", async (req, res) => {
-  const userId = process.env.ID;
+  const userId = req.session.id;
   const improvementId = req.params.id;
   try {
     const purchaseImprovement = await improveService.purchaseImprovement(
@@ -28,7 +28,7 @@ router.post("/purchase/:id", async (req, res) => {
 });
 
 router.post("/update/:id", async (req, res) => {
-  const userId = process.env.ID;
+  const userId = req.session.id;
   const improvementId = req.params.id;
   try {
     const updateImprovement = await improveService.updateImprovement(

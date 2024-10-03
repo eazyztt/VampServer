@@ -8,31 +8,25 @@ class TaskService {
   }
 
   static async completeTask(userId, taskId) {
-    const user = await UserModel.findById(userId);
+    let user = await UserModel.findById(userId);
+    const task = await TaskModel.findById(taskId);
+    console.log(task);
 
-    if (!user) {
-      throw new Error("No user in db");
+    if (user.tasks.length === 0) {
+      user.tasks.push(task);
+
+      user.save();
+      return user.tasks;
+    }
+    if (user.tasks.find(usrTask.id === task._id)) {
+      throw new Error("Task already completed");
     }
 
-    let completedTask = user.tasks.find((task) => task.id == taskId);
-
-    if (!completedTask) {
-      throw new Error("No such task in database");
-    }
-
-    if (completedTask.isCompleted == true) {
-      throw new Error("Task is already completed");
-    }
-
-    completedTask.isCompleted = true;
-
-    user.tasks = user.tasks.map((task) =>
-      task.id === completedTask.id ? completedTask : task
-    );
+    user.tasks.push(task);
 
     user.save();
 
-    return "Task is completed";
+    return user.tasks;
   }
 
   static async getUserTasks(userId) {
@@ -42,11 +36,13 @@ class TaskService {
       throw new Error("No user in db");
     }
     for (const task of user.tasks) {
+      console.log(task);
+
       const newTask = await TaskModel.findById(task.id);
       tasks.push({
+        lvl: newTask.lvl,
         title: newTask.title,
         description: newTask.description,
-        isCompleted: task.isCompleted,
       });
     }
     return tasks;

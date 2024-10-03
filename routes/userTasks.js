@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
 
 router.get("/userTasks", async (req, res) => {
   try {
-    const userTasks = await TaskService.getUserTasks(process.env.ID);
+    const userTasks = await TaskService.getUserTasks(req.session.id);
     res.status(200).json(userTasks);
   } catch (err) {
     res.status(400).send(err.message);
@@ -20,7 +20,7 @@ router.post("/:taskId", async (req, res) => {
   const taskId = req.params.taskId;
   try {
     const completedTask = await TaskService.completeTask(
-      process.env.ID,
+      req.session.id,
       taskId
     );
     return res.status(200).send(completedTask);
