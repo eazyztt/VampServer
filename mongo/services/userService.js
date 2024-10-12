@@ -18,7 +18,7 @@ class UserService {
     return {
       username: user.username,
       money: user.money,
-      lastClaim: user.moneyForClaim,
+      lastClaim: user.lastClaim,
       lvl: user.lvl,
     };
   }
