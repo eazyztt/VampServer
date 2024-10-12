@@ -3,7 +3,7 @@ const router = express.Router();
 const FriendService = require("../mongo/services/friendsService");
 
 router.get("/", async (req, res) => {
-  const userId = req.session.id;
+  const userId = req.session.tgId;
   try {
     const friends = await FriendService.getFriends(userId);
     return res.status(200).json(friends);

@@ -21,8 +21,8 @@ router.post("/", async (req, res) => {
         telegramId: id,
       });
     }
-    req.session.id = id;
-    console.log(`${req.session.id} session id`);
+    req.session.tgId = id;
+    console.log(`${req.session.tgId} session id`);
 
     return res.send({
       username: user.username,
