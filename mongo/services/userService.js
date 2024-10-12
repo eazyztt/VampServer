@@ -14,7 +14,7 @@ class UserService {
     const user = await userModel.findOne({ telegramId: id });
     console.log(`this is possible error ${user}`);
 
-    if (!user) {
+    if (!user || user == null) {
       throw new Error("No such user in our database");
     }
     return {
