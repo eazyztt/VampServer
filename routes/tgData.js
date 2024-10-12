@@ -24,12 +24,7 @@ router.post("/", async (req, res) => {
     req.session.tgId = id;
     console.log(`${req.session.tgId} session id`);
 
-    return res.send({
-      username: user.username,
-      money: user.money,
-      lastClaim: user.lastClaim,
-      lvl: user.lvl,
-    });
+    return res.redirect("/");
   } catch (error) {
     console.log(error);
 
