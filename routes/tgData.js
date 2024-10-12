@@ -15,12 +15,11 @@ router.post("/", async (req, res) => {
     const user = await userModel.findOne({ telegramId: id });
     console.log(user);
 
-    if (!user) {
+    if (!user || user == null) {
       await UserService.create({
         username: username,
         telegramId: id,
       });
-      req.session.id = id;
     }
     req.session.id = id;
     return res.send({

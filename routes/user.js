@@ -4,10 +4,18 @@ const userService = require("../mongo/services/userService");
 
 router.get("/", async (req, res) => {
   const userId = req.session.id;
+  console.log(`id of user is ${userId}`);
+
+  console.log("hello");
+
   try {
     const user = await userService.getUserInfo(userId);
+    console.log(user);
+
     return res.status(200).json(user);
   } catch (err) {
+    console.log(err);
+
     return res.status(400).send(err.message);
   }
 });
