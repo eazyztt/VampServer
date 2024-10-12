@@ -7,18 +7,30 @@ const verifyInitData = require("../auth/auth");
 router.post("/", async (req, res) => {
   try {
     const telegramData = req.body;
+
     const { username, id } = verifyInitData(telegramData.initData);
-    const user = await userModel.findById(id);
+    console.log(id);
+
+    const user = await userModel.findOne({ telegramId: id });
+    console.log(user);
+
     if (!user) {
-      UserService.create({
-        name: username,
+      await UserService.create({
+        username: username,
         telegramId: id,
       });
       req.session.id = id;
     }
     req.session.id = id;
-    return res.send("success");
+    return res.send({
+      username: user.username,
+      money: user.money,
+      lastClaim: user.lastClaim,
+      lvl: user.lvl,
+    });
   } catch (error) {
+    console.log(error);
+
     return res.send(error);
   }
 });
