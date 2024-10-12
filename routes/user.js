@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
 
   try {
     const user = await userService.getUserInfo(userId);
-    console.log(user);
+    console.log(`user sended to client ${user}`);
 
     return res.status(200).json(user);
   } catch (err) {
