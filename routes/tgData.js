@@ -24,7 +24,12 @@ router.post("/", async (req, res) => {
     req.session.tgId = id;
     console.log(`${req.session.tgId} session id`);
 
-    return res.redirect("/");
+    return res.json({
+      username: user.username,
+      money: user.money,
+      lastClaim: user.lastClaim,
+      lvl: user.lvl,
+    });
   } catch (error) {
     console.log(error);
 
