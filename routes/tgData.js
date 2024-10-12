@@ -22,6 +22,8 @@ router.post("/", async (req, res) => {
       });
     }
     req.session.id = id;
+    console.log(`${req.session.id} session id`);
+
     return res.send({
       username: user.username,
       money: user.money,
