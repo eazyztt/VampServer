@@ -7,6 +7,7 @@ const verifyInitData = require("../auth/auth");
 router.post("/", async (req, res) => {
   try {
     const telegramData = req.body;
+    console.log(telegramData);
 
     const { username, id } = verifyInitData(telegramData.initData);
     console.log(id);
