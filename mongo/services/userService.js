@@ -11,12 +11,12 @@ class UserService {
   }
 
   static async getUserInfo(id) {
-    const user = await userModel.findById(id);
+    const user = await userModel.findOne({ telegramId: id });
     if (!user) {
       throw new Error("No such user in our database");
     }
     return {
-      username: user.name,
+      username: user.username,
       money: user.money,
       lastClaim: user.moneyForClaim,
       lvl: user.lvl,

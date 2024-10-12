@@ -3,16 +3,19 @@ const cryptoId = require("../../utilities/cryptoId");
 const { ObjectId } = require("mongodb");
 
 const userSchema = mongoose.Schema({
-  name: { type: String, required: true },
-  money: { type: Number, default: 1000 },
+  telegramId: { type: String, unique: true },
+  username: { type: String, required: true },
+  money: { type: String, default: "1000" },
   readyToClaim: { type: Boolean, default: true },
-  lastClaim: {
-    type: Date,
-    default: new Date("September 02, 2005 16:30:00"),
-  },
+  skin: { type: String, default: "" },
+  // lastClaim: {
+  //   type: Date,
+  //   default: new Date("September 02, 2005 16:30:00"),
+  // },
+  lastClaim: { type: Number, default: 100 },
   moneyForClaim: { type: Number, default: 0 },
   hash: { type: String },
-  lvl: { type: Number },
+  lvl: { type: String, default: "1" },
   improves: [
     {
       _id: false,
