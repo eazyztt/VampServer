@@ -36,9 +36,9 @@ app.set("view engine", "ejs");
 
 app.use("/telegram-data", tgData);
 
-app.use("/", improvements);
+app.use("/improvements", improvements);
 
-app.use("/user", userRoute);
+app.use("/", userRoute);
 
 app.use("/tasks", tasks);
 
