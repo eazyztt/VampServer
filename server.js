@@ -18,7 +18,12 @@ const { Telegram } = require("telegraf");
 
 const port = process.env.PORT;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://my-vamp-app.netlify.app", // указываете конкретный URL фронтенда
+    credentials: true, // позволяет передавать cookies между разными доменами
+  })
+);
 
 app.use(
   session({
