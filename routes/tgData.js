@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
     req.session.tgId = id;
     console.log(`${req.session.tgId} session id`);
 
-    return res.send(user);
+    return res.send("ok");
   } catch (error) {
     console.log(error);
 
