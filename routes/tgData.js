@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
       });
     }
 
-    res.cookie("token", telegramData, {
+    res.cookie("token", telegramData.initData, {
       httpOnly: true,
       secure: true,
       sameSite: "None",

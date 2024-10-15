@@ -6,7 +6,7 @@ const verifyInitData = require("../auth/auth");
 router.get("/", async (req, res) => {
   const telegramData = req.cookies.token;
 
-  const { username, id } = verifyInitData(telegramData.initData);
+  const { username, id } = verifyInitData(telegramData);
 
   console.log(`id of user is ${id}`);
 
