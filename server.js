@@ -15,10 +15,13 @@ const TaskService = require("./mongo/services/taskService");
 const UserService = require("./mongo/services/userService");
 const ImproveService = require("./mongo/services/improveService");
 const { Telegram } = require("telegraf");
+const cookieParser = require("cookie-parser");
 
 const port = process.env.PORT;
 
 app.set("trust proxy", 1);
+
+app.use(cookieParser());
 
 app.use(
   session({
