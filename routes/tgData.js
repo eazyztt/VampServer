@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
         telegramId: id,
       });
     }
-    req.session.tgId = id;
+    req.session.tgId = "15942384329";
     req.session.save((err) => {
       if (err) {
         console.error("Ошибка при сохранении сессии:", err);
