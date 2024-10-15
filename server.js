@@ -18,6 +18,8 @@ const { Telegram } = require("telegraf");
 
 const port = process.env.PORT;
 
+app.set("trust proxy", 1);
+
 app.use(
   session({
     secret: process.env.COOKIE_KEY,
@@ -25,7 +27,7 @@ app.use(
     saveUninitialized: true,
     cookie: {
       secure: true, // установить true, если используете HTTPS
-      sameSite: "lax", // 'lax' позволяет сохранять cookies при редиректе между маршрутами
+      sameSite: "none", // 'lax' позволяет сохранять cookies при редиректе между маршрутами
     },
   })
 );
