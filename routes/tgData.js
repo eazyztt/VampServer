@@ -25,7 +25,6 @@ router.post("/", async (req, res) => {
     req.session.save((err) => {
       if (err) {
         console.error("Ошибка при сохранении сессии:", err);
-        return res.status(500).send("Ошибка при сохранении сессии");
       }
       console.log(`${req.session.tgId} session id`);
       return res.send("ok");
