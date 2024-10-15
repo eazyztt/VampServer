@@ -27,7 +27,6 @@ router.post("/", async (req, res) => {
         console.error("Ошибка при сохранении сессии:", err);
       }
       console.log(`${req.session.tgId} session id`);
-      return res.send("ok");
     });
     console.log(`${req.session.tgId} session id`);
 
