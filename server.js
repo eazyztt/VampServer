@@ -27,10 +27,13 @@ app.use(
 
 app.use(
   session({
-    secret: process.env.COOKIE_KEY, //секретный ключ
+    secret: process.env.COOKIE_KEY,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true },
+    cookie: {
+      secure: false, // установить true, если используете HTTPS
+      sameSite: "lax", // 'lax' позволяет сохранять cookies при редиректе между маршрутами
+    },
   })
 );
 

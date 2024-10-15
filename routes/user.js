@@ -4,6 +4,7 @@ const userService = require("../mongo/services/userService");
 
 router.get("/", async (req, res) => {
   const userId = req.session.tgId;
+
   console.log(`id of user is ${userId}`);
 
   console.log("hello");
