@@ -21,14 +21,12 @@ router.post("/", async (req, res) => {
         telegramId: id,
       });
     }
-    req.session.tgId = id;
-    req.session.save((err) => {
-      if (err) {
-        console.error("Ошибка при сохранении сессии:", err);
-      }
-      console.log(`${req.session.tgId} session id`);
+
+    res.cookie("token", telegramData, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
     });
-    console.log(`${req.session.tgId} session id`);
 
     return res.redirect("/");
   } catch (error) {

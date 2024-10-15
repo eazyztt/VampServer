@@ -1,16 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const userService = require("../mongo/services/userService");
+const verifyInitData = require("../auth/auth");
 
 router.get("/", async (req, res) => {
-  const userId = req.session.tgId;
+  const telegramData = req.cookies.telegramData;
 
-  console.log(`id of user is ${userId}`);
+  const { username, id } = verifyInitData(telegramData.initData);
+
+  console.log(`id of user is ${id}`);
 
   console.log("hello");
 
   try {
-    const user = await userService.getUserInfo(userId);
+    const user = await userService.getUserInfo(id);
     console.log(`user sended to client ${user}`);
 
     return res.status(200).json(user);
