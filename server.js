@@ -21,8 +21,6 @@ const port = process.env.PORT;
 
 app.set("trust proxy", 1);
 
-app.use(cookieParser());
-
 app.use(
   session({
     secret: process.env.COOKIE_KEY,
@@ -34,6 +32,8 @@ app.use(
     },
   })
 );
+
+app.use(cookieParser());
 
 const corsOptions = {
   origin: function (origin, callback) {
