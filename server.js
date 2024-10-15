@@ -25,7 +25,7 @@ app.use(
     saveUninitialized: true,
     cookie: {
       secure: true, // установить true, если используете HTTPS
-      sameSite: "none", // 'lax' позволяет сохранять cookies при редиректе между маршрутами
+      sameSite: "lax", // 'lax' позволяет сохранять cookies при редиректе между маршрутами
     },
   })
 );
