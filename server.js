@@ -32,12 +32,7 @@ app.use(
   })
 );
 
-app.use(
-  cors({
-    origin: "https://my-vamp-app.netlify.app", // указываете конкретный URL фронтенда
-    credentials: true, // позволяет передавать cookies между разными доменами
-  })
-);
+app.use(cors());
 
 // Используем body-parser для парсинга JSON запросов
 app.use(bodyParser.json());
