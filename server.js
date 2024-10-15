@@ -24,7 +24,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: false, // установить true, если используете HTTPS
+      secure: true, // установить true, если используете HTTPS
       sameSite: "none", // 'lax' позволяет сохранять cookies при редиректе между маршрутами
     },
   })
