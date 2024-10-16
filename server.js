@@ -19,7 +19,7 @@ const cookieParser = require("cookie-parser");
 
 const port = process.env.PORT;
 
-app.set("trust proxy", 1);
+//app.set("trust proxy", 1);
 
 app.use(
   session({
@@ -68,7 +68,7 @@ app.use("/tasks", tasks);
 
 app.use("/friends", friends);
 
-app.use("/auth", authRouter);
+//app.use("/auth", authRouter);
 
 async function connectToDB() {
   return mongoose.connect(process.env.MONGO_URL);
@@ -92,13 +92,6 @@ connectToDB()
 // });
 
 //UserService.completeTask();
-
-async function anon() {
-  await UserService.create({
-    name: "Stephoo",
-    telegramId: "31290382931",
-  });
-}
 
 // async function anon2(id) {
 //   try {
