@@ -35,23 +35,23 @@ app.use(
 
 app.use(cookieParser());
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    const allowedOrigins = ["https://my-vamp-app.netlify.app"];
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     const allowedOrigins = ["https://my-vamp-app.netlify.app"];
 
-    // Разрешаем запросы без Origin (например, от Postman)
-    if (!origin) return callback(null, true);
+//     // Разрешаем запросы без Origin (например, от Postman)
+//     if (!origin) return callback(null, true);
 
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true, // Разрешаем отправку credentials (cookies, авторизация)
-};
+//     if (allowedOrigins.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true, // Разрешаем отправку credentials (cookies, авторизация)
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // Используем body-parser для парсинга JSON запросов
 app.use(bodyParser.json());
