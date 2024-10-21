@@ -3,7 +3,7 @@ const cryptoId = require("../../utilities/cryptoId");
 const { ObjectId } = require("mongodb");
 
 const userSchema = mongoose.Schema({
-  telegramId: { type: String, unique: true },
+  telegramId: { type: String },
   username: { type: String, required: true },
   money: { type: String, default: "1000" },
   readyToClaim: { type: Boolean, default: true },
