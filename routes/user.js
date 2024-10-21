@@ -3,25 +3,29 @@ const router = express.Router();
 const userService = require("../mongo/services/userService");
 const verifyInitData = require("../auth/auth");
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   //const { username, id } = verifyInitData(telegramData);
   const authHeader = JSON.stringify(req.headers["authorization"]);
 
-  const { username, id } = verifyInitData(authHeader);
-  console.log(username);
-  console.log(`id of user is ${id}`);
+  if (authHeader) {
+    const { username, id } = verifyInitData(authHeader);
+    console.log(username);
+    console.log(`id of user is ${id}`);
 
-  console.log("hello");
+    console.log("hello");
 
-  try {
-    const user = await userService.getUserInfo(id);
-    console.log(`user sended to client ${user}`);
+    try {
+      const user = await userService.getUserInfo(id);
+      console.log(`user sended to client ${user}`);
 
-    return res.status(200).json(user);
-  } catch (err) {
-    console.log(err);
+      return res.status(200).json(user);
+    } catch (err) {
+      console.log(err);
 
-    return res.status(400).send(err.message);
+      return res.status(400).send(err.message);
+    }
+  } else {
+    return next();
   }
 });
 
