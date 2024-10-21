@@ -12,28 +12,24 @@ router.post("/", async (req, res, next) => {
     console.log(telegramData);
 
     const authHeader = JSON.stringify(req.headers["authorization"]);
-    if (authHeader) {
-      console.log(`header is ${authHeader}`);
+    console.log(`header is ${authHeader}`);
 
-      const { username, id } = verifyInitData(authHeader);
-      console.log(`why undefined ${id}`);
+    const { username, id } = verifyInitData(authHeader);
+    console.log(`why undefined ${id}`);
 
-      const user = await userModel.findOne({ telegramId: id });
-      console.log(user);
+    const user = await userModel.findOne({ telegramId: id });
+    console.log(user);
 
-      if (!user || user == null) {
-        await UserService.create({
-          username: username,
-          telegramId: id,
-        });
-      }
-
-      req.session.tgId = id;
-
-      return res.redirect("/");
-    } else {
-      return next();
+    if (!user || user == null) {
+      await UserService.create({
+        username: username,
+        telegramId: id,
+      });
     }
+
+    req.session.tgId = id;
+
+    return res.redirect("/");
   } catch (error) {
     console.log(error);
 
