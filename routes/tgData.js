@@ -10,8 +10,8 @@ router.post("/", async (req, res, next) => {
 
     if (!user || user == null) {
       await UserService.create({
-        username: username,
-        telegramId: id,
+        username: req.username,
+        telegramId: req.tgId,
       });
     }
 

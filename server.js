@@ -46,6 +46,7 @@ const verifyAuth = (req, res, next) => {
   }
 
   req.tgId = id;
+  req.username = username;
   // Дальше выполняется логика валидации
   next();
 };
