@@ -2,9 +2,7 @@ const crypto = require("crypto");
 require("dotenv").config();
 
 const verifyInitData = (telegramInitData) => {
-  const cleanedTelegramInitData = telegramInitData
-    .replace(/^"/, "")
-    .replace(/"$/, "");
+  const cleanedTelegramInitData = telegramInitData;
 
   const urlParams = new URLSearchParams(cleanedTelegramInitData);
   //console.log(urlParams);
