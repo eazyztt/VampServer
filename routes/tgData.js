@@ -5,20 +5,8 @@ const userModel = require("../mongo/models/userModel");
 const verifyInitData = require("../auth/auth");
 
 router.post("/", async (req, res, next) => {
-  console.log(true);
-
   try {
-    const telegramData = req.body;
-    console.log(telegramData);
-
-    const authHeader = JSON.stringify(req.headers["authorization"]);
-    console.log(`header is ${authHeader}`);
-
-    const { username, id } = verifyInitData(authHeader);
-    console.log(`why undefined ${id}`);
-
-    const user = await userModel.findOne({ telegramId: id });
-    console.log(user);
+    const user = await userModel.findOne({ telegramId: req.tgId });
 
     if (!user || user == null) {
       await UserService.create({

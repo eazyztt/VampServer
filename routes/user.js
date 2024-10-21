@@ -5,16 +5,9 @@ const verifyInitData = require("../auth/auth");
 
 router.get("/", async (req, res) => {
   //const { username, id } = verifyInitData(telegramData);
-  const authHeader = JSON.stringify(req.headers["authorization"]);
-
-  const { username, id } = verifyInitData(authHeader);
-  console.log(username);
-  console.log(`id of user is ${id}`);
-
-  console.log("hello");
 
   try {
-    const user = await userService.getUserInfo(id);
+    const user = await userService.getUserInfo(req.tgId);
     console.log(`user sended to client ${user}`);
 
     return res.status(200).json(user);
