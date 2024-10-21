@@ -22,7 +22,7 @@ const port = process.env.PORT;
 //app.set("trust proxy", 1);
 app.use(
   cors({
-    origin: "https://cb02-151-115-62-148.ngrok-free.app",
+    origin: "https://my-vamp-app.netlify.app",
     credentials: true,
   })
 );
