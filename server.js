@@ -6,16 +6,10 @@ const improvements = require("./routes/improvementRoute");
 const userRoute = require("./routes/user");
 const tasks = require("./routes/userTasks");
 const friends = require("./routes/friends");
-const authRouter = require("./routes/authRouteTest");
 const tgData = require("./routes/tgData");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const cors = require("cors");
-const TaskService = require("./mongo/services/taskService");
-const UserService = require("./mongo/services/userService");
-const ImproveService = require("./mongo/services/improveService");
-const { Telegram } = require("telegraf");
-const cookieParser = require("cookie-parser");
 
 const port = process.env.PORT;
 
@@ -57,7 +51,6 @@ app.use(
 // Используем body-parser для парсинга JSON запросов
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.set("view engine", "ejs");
 
 app.use("/telegram-data", tgData);
 

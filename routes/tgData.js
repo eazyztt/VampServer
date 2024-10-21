@@ -27,8 +27,6 @@ router.post("/", async (req, res, next) => {
       });
     }
 
-    req.session.tgId = id;
-
     return res.redirect("/");
   } catch (error) {
     console.log(error);
