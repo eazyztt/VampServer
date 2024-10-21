@@ -20,6 +20,12 @@ const cookieParser = require("cookie-parser");
 const port = process.env.PORT;
 
 //app.set("trust proxy", 1);
+app.use(
+  cors({
+    origin: "https://cb02-151-115-62-148.ngrok-free.app",
+    credentials: true,
+  })
+);
 
 app.use(
   session({
@@ -28,12 +34,9 @@ app.use(
     saveUninitialized: true,
     cookie: {
       secure: true, // установить true, если используете HTTPS
-      sameSite: "none", // 'lax' позволяет сохранять cookies при редиректе между маршрутами
     },
   })
 );
-
-app.use(cookieParser());
 
 // const corsOptions = {
 //   origin: function (origin, callback) {
@@ -50,8 +53,6 @@ app.use(cookieParser());
 //   },
 //   credentials: true, // Разрешаем отправку credentials (cookies, авторизация)
 // };
-
-app.use(cors());
 
 // Используем body-parser для парсинга JSON запросов
 app.use(bodyParser.json());
@@ -76,7 +77,7 @@ async function connectToDB() {
 
 connectToDB()
   .then(() => {
-    app.listen(port, () => {
+    app.listen(port, "0.0.0.0", () => {
       console.log(`Server is running on http://localhost:${port}`);
     });
   })

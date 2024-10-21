@@ -4,10 +4,11 @@ const userService = require("../mongo/services/userService");
 const verifyInitData = require("../auth/auth");
 
 router.get("/", async (req, res) => {
-  const telegramData = req.cookies.token;
+  //const { username, id } = verifyInitData(telegramData);
+  const authHeader = JSON.stringify(req.headers["authorization"]);
 
-  const { username, id } = verifyInitData(telegramData);
-
+  const { username, id } = verifyInitData(authHeader);
+  console.log(username);
   console.log(`id of user is ${id}`);
 
   console.log("hello");

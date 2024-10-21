@@ -5,12 +5,17 @@ const userModel = require("../mongo/models/userModel");
 const verifyInitData = require("../auth/auth");
 
 router.post("/", async (req, res) => {
+  console.log(true);
+
   try {
     const telegramData = req.body;
     console.log(telegramData);
 
-    const { username, id } = verifyInitData(telegramData.initData);
-    console.log(id);
+    const authHeader = JSON.stringify(req.headers["authorization"]);
+    console.log(`header is ${authHeader}`);
+
+    const { username, id } = verifyInitData(authHeader);
+    console.log(`why undefined ${id}`);
 
     const user = await userModel.findOne({ telegramId: id });
     console.log(user);
@@ -22,11 +27,7 @@ router.post("/", async (req, res) => {
       });
     }
 
-    res.cookie("token", telegramData.initData, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-    });
+    req.session.tgId = id;
 
     return res.redirect("/");
   } catch (error) {

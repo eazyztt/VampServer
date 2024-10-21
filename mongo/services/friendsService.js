@@ -3,7 +3,7 @@ const userModel = require("../models/userModel");
 class FriendService {
   static async getFriends(userId) {
     let friends = [];
-    const user = await userModel.getById(userId);
+    const user = await userModel.findOne({ telegramId: userId });
     if (!user) {
       throw new Error("No user in DB");
     }

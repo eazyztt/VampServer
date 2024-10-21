@@ -2,10 +2,18 @@ const crypto = require("crypto");
 require("dotenv").config();
 
 const verifyInitData = (telegramInitData) => {
-  const urlParams = new URLSearchParams(telegramInitData);
+  const cleanedTelegramInitData = telegramInitData
+    .replace(/^"/, "")
+    .replace(/"$/, "");
+
+  const urlParams = new URLSearchParams(cleanedTelegramInitData);
   //console.log(urlParams);
+  console.log(urlParams.entries());
+
   let username = urlParams.get("user").split(",")[3].split(":")[1];
   let id = urlParams.get("user").split(",")[0].split(":")[1];
+  console.log(`this is id from auth ${id}`);
+
   username = username.slice(1, -1);
   const hash = urlParams.get("hash");
   urlParams.delete("hash");
@@ -25,7 +33,11 @@ const verifyInitData = (telegramInitData) => {
     .update(dataCheckString)
     .digest("hex");
 
+  console.log({ calculatedHash, hash });
+
   if (calculatedHash === hash) {
+    console.log("this code is never executed");
+
     return { username, id };
   } else {
     return false;
