@@ -3,7 +3,7 @@ const router = express.Router();
 const UserService = require("../psql/userService");
 const userModel = require("../mongo/models/userModel");
 const verifyInitData = require("../auth/auth");
-const cryptoId = require("../../utilities/cryptoId");
+const cryptoId = require("../utilities/cryptoId");
 
 router.post("/", async (req, res, next) => {
   const user = await UserService.getUserInfo(req.tgId);
