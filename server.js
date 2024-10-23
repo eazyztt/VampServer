@@ -69,16 +69,6 @@ app.use("/friends", friends);
 
 //app.use("/auth", authRouter);
 
-async function connectToDB() {
-  return mongoose.connect(process.env.MONGO_URL);
-}
-
-connectToDB()
-  .then(() => {
-    app.listen(port, "0.0.0.0", () => {
-      console.log(`Server is running on http://localhost:${port}`);
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
