@@ -1,5 +1,5 @@
 const { DataTypes, Model } = require("sequelize");
-const sequelize = require("../");
+const sequelize = require("../psqlDb");
 const Task = require("./task");
 const Friendship = require("./friendship");
 
