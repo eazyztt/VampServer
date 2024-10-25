@@ -10,6 +10,7 @@ User.init(
     telegramId: {
       type: DataTypes.STRING,
       allowNull: true,
+      primaryKey: true,
     },
     username: {
       type: DataTypes.STRING,

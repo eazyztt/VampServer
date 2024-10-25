@@ -6,7 +6,9 @@ const User = require("../psqlModels/user"); // Импортируем модел
 class VampStatus {
   static async updateStatus(id) {
     const user = await User.findByPk(id);
-    if (!user) throw new Error("Character not found");
+    if (!user) {
+      return false;
+    }
 
     const now = new Date();
     const eightHoursInMs = 8 * 60 * 60 * 1000;
@@ -32,6 +34,7 @@ class VampStatus {
 
   static async feed(id) {
     const user = await User.findByPk(id);
+
     user.lastFed = new Date();
     user.isHungry = false;
     await user.save();

@@ -6,6 +6,7 @@ const VampStatus = require("../psqlServices/tamagochi");
 
 router.post("/", async (req, res, next) => {
   const user = await VampStatus.updateStatus(req.tgId);
+
   const hash = cryptoId.encrypt(req.tgId, process.env.SECRET_KEY_ID);
 
   if (!user || user == null) {
