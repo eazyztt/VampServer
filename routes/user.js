@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/hash", async (req, res) => {
+router.get("/user/hash", async (req, res) => {
   const userId = req.session.id;
   try {
     const hash = await userService.getHash(userId);
