@@ -20,7 +20,7 @@ class UserService {
     });
 
     if (!user) {
-      throw new Error("No such user in our database");
+      return false;
     }
 
     return user;
