@@ -3,7 +3,6 @@ const sequelize = require("./psqlDb");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const app = express();
-const improvements = require("./routes/improvementRoute");
 const userRoute = require("./routes/user");
 const tasks = require("./routes/userTasks");
 const friends = require("./routes/friends");
@@ -66,8 +65,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(verifyAuth);
 
 app.use("/telegram-data", tgData);
-
-app.use("/improvements", improvements);
 
 app.use("/", userRoute);
 
