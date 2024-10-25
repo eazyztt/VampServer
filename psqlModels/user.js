@@ -28,8 +28,8 @@ User.init(
       defaultValue: "",
     },
     lastClaim: {
-      type: DataTypes.INTEGER, // PostgreSQL не имеет поля Date по умолчанию, Integer для соответствия структуре
-      defaultValue: 100,
+      type: DataTypes.DATE,
+      defaultValue: new Date(2005, 8, 2),
     },
     moneyForClaim: {
       type: DataTypes.INTEGER,
@@ -41,6 +41,30 @@ User.init(
     lvl: {
       type: DataTypes.STRING,
       defaultValue: "1",
+    },
+    lastFed: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(2005, 8, 2),
+    },
+    lastWashed: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(2005, 8, 2),
+    },
+    lastSlept: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(2005, 8, 2),
+    },
+    isTired: {
+      type: DataTypes.DATE,
+      defaultValue: true,
+    },
+    isHungry: {
+      type: DataTypes.DATE,
+      defaultValue: true,
+    },
+    isDirty: {
+      type: DataTypes.DATE,
+      defaultValue: true,
     },
   },
   {

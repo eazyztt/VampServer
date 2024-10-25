@@ -14,6 +14,18 @@ class UserService {
     }
   }
 
+  static async getFullUser(id) {
+    const user = await User.findOne({
+      where: { telegramId: id },
+    });
+
+    if (!user) {
+      return false;
+    }
+
+    return user;
+  }
+
   static async getUserInfo(id) {
     const user = await User.findOne({
       where: { telegramId: id },
