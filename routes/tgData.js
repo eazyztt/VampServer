@@ -14,10 +14,7 @@ router.post("/", async (req, res, next) => {
       telegramId: req.tgId,
       money: 1000,
       readyToClaim: true,
-      skin: "girl",
-      lastClaim: 1020905, // birthday
       hash: hash,
-      lvl: 1,
     });
   }
 

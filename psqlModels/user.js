@@ -25,7 +25,7 @@ User.init(
     },
     skin: {
       type: DataTypes.STRING,
-      defaultValue: "",
+      defaultValue: "boy",
     },
     lastClaim: {
       type: DataTypes.DATE,
@@ -55,15 +55,15 @@ User.init(
       defaultValue: new Date(2005, 8, 2),
     },
     isTired: {
-      type: DataTypes.DATE,
+      type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
     isHungry: {
-      type: DataTypes.DATE,
+      type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
     isDirty: {
-      type: DataTypes.DATE,
+      type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
   },
