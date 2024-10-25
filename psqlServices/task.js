@@ -20,7 +20,7 @@ class TaskService {
       });
       if (!user) throw new Error("User not found");
 
-      const task = await Task.findByPk(taskId);
+      const task = await TaskAll.findByPk(taskId);
       if (!task) throw new Error("Task not found");
 
       // Проверяем, завершена ли задача
