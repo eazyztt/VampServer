@@ -1,5 +1,4 @@
 const crypto = require("crypto");
-const db = require("../db");
 
 const encrypt = (plainText, password) => {
   try {
@@ -17,29 +16,6 @@ const encrypt = (plainText, password) => {
   } catch (error) {
     console.log(error);
   }
-};
-
-const hashToDB = async (userId, hash) => {
-  const userRef = db.collection("users").doc(userId);
-  const userDoc = await userRef.get();
-  console.log(userId);
-  if (!userDoc.exists) {
-    console.log("no user");
-    return false;
-  }
-  userRef.update({
-    hash: hash,
-  });
-  return true;
-};
-
-const hashFromDB = async (userID) => {
-  const userDoc = db.collection("users").doc(userId);
-  if (!userDoc.exists) {
-    return false;
-  }
-  const userData = await userDoc.get().data();
-  return userData.hash;
 };
 
 const decrypt = (encryptedText, password) => {
@@ -66,6 +42,4 @@ const decrypt = (encryptedText, password) => {
 module.exports = {
   encrypt,
   decrypt,
-  hashToDB,
-  hashFromDB,
 };
