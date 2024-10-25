@@ -1,10 +1,11 @@
 const User = require("../psqlModels/user"); // Импортируем модель User
 const Task = require("../psqlModels/task"); // Импортируем модель Task
+const TaskAll = require("../psqlModels/taskForAll");
 
 class TaskService {
   static async getAllTasks() {
     try {
-      const tasks = await Task.findAll(); // Находим все задачи
+      const tasks = await TaskAll.findAll(); // Находим все задачи
       return tasks;
     } catch (error) {
       console.error("Error fetching all tasks:", error);
