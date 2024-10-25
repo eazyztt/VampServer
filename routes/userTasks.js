@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const TaskService = require("../mongo/services/taskService");
+const TaskService = require("../psqlServices/task");
 
 router.get("/", async (req, res) => {
   let allTasks = await TaskService.getAllTasks();

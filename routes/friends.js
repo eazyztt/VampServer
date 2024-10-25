@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const FriendService = require("../mongo/services/friendsService");
+const FriendService = require("../psqlServices/friend");
 
 router.get("/", async (req, res) => {
   try {
