@@ -77,6 +77,15 @@ app.use("/friends", friends);
 
 //app.use("/auth", authRouter);
 
+sequelize
+  .sync()
+  .then(() => {
+    console.log("Database synced successfully");
+  })
+  .catch((error) => {
+    console.error("Error syncing database:", error);
+  });
+
 connectDB().then(() => {
   app.listen(port, "0.0.0.0", () => {
     console.log(`Server is running on http://localhost:${port}`);
