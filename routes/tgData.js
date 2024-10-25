@@ -14,7 +14,7 @@ router.post("/", async (req, res, next) => {
       money: 1000,
       readyToClaim: true,
       skin: "girl",
-      lastClaim: Date(), // birthday
+      lastClaim: 1020905, // birthday
       hash: hash,
       lvl: 1,
     });
