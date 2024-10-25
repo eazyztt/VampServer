@@ -1,4 +1,5 @@
 const express = require("express");
+const sequelize = require("./psqlDb");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const app = express();
@@ -7,13 +8,20 @@ const userRoute = require("./routes/user");
 const tasks = require("./routes/userTasks");
 const friends = require("./routes/friends");
 const tgData = require("./routes/tgData");
-const mongoose = require("mongoose");
 require("dotenv").config();
 const cors = require("cors");
 const verifyInitData = require("./auth/auth");
-const { message } = require("telegraf/filters");
 
 const port = process.env.PORT;
+
+async function connectDB() {
+  try {
+    await sequelize.authenticate();
+    console.log("Connection to PostgreSQL has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+}
 
 //app.set("trust proxy", 1);
 app.use(
@@ -69,6 +77,8 @@ app.use("/friends", friends);
 
 //app.use("/auth", authRouter);
 
-app.listen(port, "0.0.0.0", () => {
-  console.log(`Server is running on http://localhost:${port}`);
+connectDB().then(() => {
+  app.listen(port, "0.0.0.0", () => {
+    console.log(`Server is running on http://localhost:${port}`);
+  });
 });

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userService = require("../psql/userService");
+const userService = require("../psqlServices/user");
 const verifyInitData = require("../auth/auth");
 
 router.get("/", async (req, res) => {

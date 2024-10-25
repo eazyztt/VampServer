@@ -1,12 +1,16 @@
-const { Pool } = require("pg");
+require("dotenv").config();
 
-const pool = new Pool({
-  user: "emslim", // Твой PostgreSQL пользователь
-  host: "dpg-cscfknjtq21c7396a3u0-a.frankfurt-postgres.render.com",
-  database: "vamp", // Имя твоей базы данных
-  password: "xJdjzplBgICJBdM8b8D2gKU0WRf0WJWF", // Пароль к базе данных
-  port: 5432, // Порт для подключения
-  ssl: { rejectUnauthorized: false }, // Если используешь Render или другой облачный сервис
+const { Sequelize } = require("sequelize");
+
+const sequelize = new Sequelize(process.env.PSQL, {
+  dialect: "postgres",
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false, // разрешаем небезопасное подключение для отладки
+    },
+  },
+  logging: false,
 });
 
-module.exports = pool;
+module.exports = sequelize;

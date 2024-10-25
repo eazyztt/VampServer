@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const UserService = require("../psql/userService");
-const userModel = require("../mongo/models/userModel");
-const verifyInitData = require("../auth/auth");
+const UserService = require("../psqlServices/user");
 const cryptoId = require("../utilities/cryptoId");
 
 router.post("/", async (req, res, next) => {
