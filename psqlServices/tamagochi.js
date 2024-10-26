@@ -6,6 +6,8 @@ const User = require("../psqlModels/user"); // Импортируем модел
 class VampStatus {
   static async updateStatus(id) {
     const user = await User.findByPk(id);
+    //console.log(`our user is going ${user}`);
+
     if (!user) {
       return false;
     }
