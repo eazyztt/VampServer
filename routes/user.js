@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const userService = require("../psqlServices/user");
+const cryptoId = require("../utilities/cryptoId");
 const verifyInitData = require("../auth/auth");
+const VampStatus = require("../psqlServices/tamagochi");
+const UserService = require("../psqlServices/user");
+const FriendService = require("../psqlServices/friend");
 
 router.get("/", async (req, res) => {
   //const { username, id } = verifyInitData(telegramData);
@@ -16,6 +20,26 @@ router.get("/", async (req, res) => {
 
     return res.status(400).send(err.message);
   }
+});
+
+router.get("/hash/:hash", async (req, res) => {
+  const hash = req.params.hash;
+  const decrypt = cryptoId.decrypt(hash, process.env.SECRET_KEY_ID);
+  const newUserHash = cryptoId.encrypt(decrypt, process.env.SECRET_KEY_ID);
+
+  const user = await VampStatus.updateStatus(req.tgId);
+
+  if (!user || user == null) {
+    await UserService.create({
+      username: req.username,
+      telegramId: req.tgId,
+      money: 1000,
+      readyToClaim: true,
+      hash: newUserHash,
+    });
+    FriendService.addUniqueFriend(decrypt, req.tgId);
+  }
+  res.redirect("/");
 });
 
 router.get("/user/hash", async (req, res) => {

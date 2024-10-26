@@ -1,11 +1,8 @@
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../psqlDb");
-const Task = require("./task");
-const Friendship = require("./friendship");
 
-class User extends Model {}
-
-User.init(
+const User = sequelize.define(
+  "User",
   {
     telegramId: {
       type: DataTypes.STRING,
@@ -69,24 +66,17 @@ User.init(
     },
   },
   {
-    sequelize,
-    modelName: "User",
-    timestamps: false, // Выключение временных меток createdAt и updatedAt
+    tableName: "users",
+    timestamps: false,
   }
 );
 
-// Описание ассоциаций и вложенных структур
-
-User.hasMany(Task, {
-  as: "tasks", // Связь для задач
-  foreignKey: "userId",
-});
-
+// Ассоциация Friends, где один User может иметь много приглашенных друзей (также User)
 User.belongsToMany(User, {
-  as: "friends",
-  through: Friendship,
-  foreignKey: "userId",
-  otherKey: "friendId",
+  as: "Friends", // название для доступа к друзьям
+  through: "UserFriends", // промежуточная таблица
+  foreignKey: "userId", // FK пользователя, у которого есть друзья
+  otherKey: "friendId", // FK друга
 });
 
 module.exports = User;

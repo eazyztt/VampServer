@@ -1,64 +1,46 @@
 const User = require("../psqlModels/user"); // Подключаем модель User
-const Friendship = require("../psqlModels/friendship"); // Подключаем модель Friendship
 
 class FriendService {
-  // Получение списка друзей пользователя
-  static async getFriends(userId) {
-    const user = await User.findByPk(userId, {
-      include: [
-        {
-          model: User,
-          as: "friends",
-          through: {
-            model: Friendship,
-            attributes: ["invitedByMe"], // Включаем только поле invitedByMe из промежуточной таблицы
-          },
-          attributes: ["username", "moneyForClaim", "lvl"], // Включаем только нужные поля из друзей
-        },
-      ],
-    });
+  // Функция для добавления друга
+  static async addUniqueFriend(userId, friendId) {
+    // Находим пользователя и друга по их telegramId
+    const user = await User.findOne({ where: { telegramId: userId } });
+    const friend = await User.findOne({ where: { telegramId: friendId } });
 
-    if (!user) {
-      throw new Error("No user in DB");
+    if (!user || !friend) {
+      console.log("Один из пользователей не найден.");
+      return; // Останавливаем выполнение, если пользователь или друг не найдены
     }
 
-    // Формируем список друзей
-    const friends = user.friends.map((friend) => ({
-      name: friend.username,
-      invitedByMe: friend.Friendship.invitedByMe, // Поле из промежуточной таблицы
-      moneyForClaim: friend.moneyForClaim,
-      lvl: friend.lvl,
-    }));
+    // Проверяем, есть ли friend уже в списке друзей user
+    const existingFriends = await user.getFriends({
+      where: { telegramId: friendId },
+    });
 
-    return friends;
+    if (existingFriends.length > 0) {
+      console.log(`${friend.username} уже является другом ${user.username}`);
+      return; // Останавливаем выполнение, если друг уже добавлен
+    }
+
+    // Добавляем друга, если его ещё нет в списке друзей
+    await user.addFriend(friend);
+    console.log(
+      `${friend.username} успешно добавлен в друзья ${user.username}`
+    );
   }
 
-  // Добавление друга к пользователю
-  static async addFriendToUser(userId, friendId) {
-    const user = await User.findByPk(userId);
-    const friend = await User.findByPk(friendId);
+  // Функция для получения списка друзей пользователя
+  static async getFriendsFunc(userId) {
+    try {
+      const user = await User.findOne({ where: { telegramId: userId } });
+      const existingFriends = await user.getFriends({
+        attributes: ["username", "money", "lastClaim", "lvl"],
+      });
 
-    if (!user) {
-      throw new Error("No user in DB");
+      return existingFriends;
+    } catch (e) {
+      return false;
     }
-    if (!friend) {
-      throw new Error("No friend in DB");
-    }
-
-    // Добавляем запись в таблицу Friendship для обоих пользователей
-    await Friendship.create({
-      userId: user.id,
-      friendId: friend.id,
-      invitedByMe: true,
-    });
-
-    await Friendship.create({
-      userId: friend.id,
-      friendId: user.id,
-      invitedByMe: false,
-    });
-
-    return "Successfully added to friend list";
   }
 }
 

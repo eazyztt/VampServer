@@ -5,21 +5,25 @@ const cryptoId = require("../utilities/cryptoId");
 const VampStatus = require("../psqlServices/tamagochi");
 
 router.post("/", async (req, res, next) => {
-  const user = await VampStatus.updateStatus(req.tgId);
+  try {
+    const user = await VampStatus.updateStatus(req.tgId);
 
-  const hash = cryptoId.encrypt(req.tgId, process.env.SECRET_KEY_ID);
+    const hash = cryptoId.encrypt(req.tgId, process.env.SECRET_KEY_ID);
 
-  if (!user || user == null) {
-    await UserService.create({
-      username: req.username,
-      telegramId: req.tgId,
-      money: 1000,
-      readyToClaim: true,
-      hash: hash,
-    });
+    if (!user || user == null) {
+      await UserService.create({
+        username: req.username,
+        telegramId: req.tgId,
+        money: 1000,
+        readyToClaim: true,
+        hash: hash,
+      });
+    }
+
+    return res.redirect("/");
+  } catch (err) {
+    console.log(err);
   }
-
-  return res.redirect("/");
 });
 
 module.exports = router;

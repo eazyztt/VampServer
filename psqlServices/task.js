@@ -16,14 +16,14 @@ class TaskService {
   static async completeTask(userId, taskId) {
     try {
       const user = await User.findByPk(userId, {
-        include: { model: Task, as: "tasks" },
+        include: { model: Task, as: "tasks" }, // Подключаем задачи, связанные с пользователем
       });
       if (!user) throw new Error("User not found");
 
-      const task = await TaskAll.findByPk(taskId);
+      const task = await TaskAll.findByPk(taskId); // Находим задачу из общей модели TaskAll
       if (!task) throw new Error("Task not found");
 
-      // Проверяем, завершена ли задача
+      // Проверяем, завершена ли задача пользователем
       const isTaskCompleted = user.tasks.some(
         (userTask) => userTask.id === task.id
       );
@@ -31,10 +31,16 @@ class TaskService {
         throw new Error("Task already completed");
       }
 
-      // Добавляем задачу к пользователю
-      await user.addTask(task); // Sequelize автоматически добавит запись в связующую таблицу
-      await user.reload(); // Обновляем пользователя с новыми задачами
+      // Создаём копию задачи для пользователя
+      const userTask = await Task.create({
+        title: task.title,
+        description: task.description,
+        link: task.link,
+        lvl: task.lvl,
+        userId: user.telegramId,
+      });
 
+      await user.reload(); // Обновляем пользователя с новыми задачами
       return user.tasks;
     } catch (error) {
       console.error("Error completing task:", error);
