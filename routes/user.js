@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/start", async (req, res) => {
+router.get("/start", async (req, res) => {
   const id = req.query.startapp;
   const user = await VampStatus.updateStatus(req.tgId);
 
