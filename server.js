@@ -7,6 +7,7 @@ const userRoute = require("./routes/user");
 const tasks = require("./routes/userTasks");
 const friends = require("./routes/friends");
 const tgData = require("./routes/tgData");
+const tamagochi = require("./routes/tamagochi");
 require("dotenv").config();
 const cors = require("cors");
 const verifyInitData = require("./auth/auth");
@@ -73,6 +74,8 @@ app.use("/", userRoute);
 app.use("/tasks", tasks);
 
 app.use("/friends", friends);
+
+app.use("/", tamagochi);
 
 //app.use("/auth", authRouter);
 

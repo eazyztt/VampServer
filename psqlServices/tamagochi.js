@@ -37,6 +37,7 @@ class VampStatus {
 
     user.lastFed = new Date();
     user.isHungry = false;
+    user.exp += 50;
     await user.save();
   }
 
@@ -44,6 +45,7 @@ class VampStatus {
     const user = await User.findByPk(id);
     user.lastWashed = new Date();
     user.isDirty = false;
+    user.exp += 50;
     await user.save();
   }
 
@@ -51,6 +53,7 @@ class VampStatus {
     const user = await User.findByPk(id);
     user.lastSlept = new Date();
     user.isTired = false;
+    user.exp += 50;
     await user.save();
   }
 }

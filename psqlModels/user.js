@@ -33,9 +33,6 @@ const User = sequelize.define(
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
-    hash: {
-      type: DataTypes.STRING,
-    },
     lvl: {
       type: DataTypes.STRING,
       defaultValue: "1",
@@ -63,6 +60,10 @@ const User = sequelize.define(
     isDirty: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
+    },
+    exp: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
     },
   },
   {

@@ -22,11 +22,8 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/hash/:hash", async (req, res) => {
-  const hash = req.params.hash;
-  const decrypt = cryptoId.decrypt(hash, process.env.SECRET_KEY_ID);
-  const newUserHash = cryptoId.encrypt(decrypt, process.env.SECRET_KEY_ID);
-
+router.post("/start", async (req, res) => {
+  const id = req.query.startapp;
   const user = await VampStatus.updateStatus(req.tgId);
 
   if (!user || user == null) {
@@ -35,17 +32,15 @@ router.get("/hash/:hash", async (req, res) => {
       telegramId: req.tgId,
       money: 1000,
       readyToClaim: true,
-      hash: newUserHash,
     });
-    FriendService.addUniqueFriend(decrypt, req.tgId);
+    FriendService.addUniqueFriend(id, req.tgId);
   }
   res.redirect("/");
 });
 
-router.get("/user/hash", async (req, res) => {
-  const userId = req.session.id;
+router.get("/ref", async (req, res) => {
   try {
-    const hash = await userService.getHash(userId);
+    const hash = `t.me/vamp_pump_bot/vamp_app/start?startapp=${req.tgId}`;
     return res.send(hash);
   } catch (err) {
     return res.send(err);
