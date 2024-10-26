@@ -8,11 +8,8 @@ const UserService = require("../psqlServices/user");
 const FriendService = require("../psqlServices/friend");
 
 router.get("/", async (req, res) => {
-  //const { username, id } = verifyInitData(telegramData);
-
   try {
     const user = await userService.getUserInfo(req.tgId);
-    console.log(`user sended to client ${user}`);
 
     return res.status(200).json(user);
   } catch (err) {
@@ -39,12 +36,8 @@ router.get("/start", async (req, res) => {
 });
 
 router.get("/ref", async (req, res) => {
-  try {
-    const hash = `t.me/vamp_pump_bot/vamp_app/start?startapp=${req.tgId}`;
-    return res.send(hash);
-  } catch (err) {
-    return res.send(err);
-  }
+  const hash = `t.me/vamp_pump_bot/vamp_app/start?startapp=${req.tgId}`;
+  return res.send(hash);
 });
 
 router.post("/claim", async (req, res) => {

@@ -33,7 +33,7 @@ class UserService {
     });
 
     if (!user) {
-      return false;
+      throw new Error("No valid user");
     }
 
     return user;
