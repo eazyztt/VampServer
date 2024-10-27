@@ -9,7 +9,7 @@ const FriendService = require("../psqlServices/friend");
 
 router.get("/", async (req, res) => {
   try {
-    const user = await userService.getUserInfo(req.tgId);
+    const user = req.USER;
 
     return res.status(200).json(user);
   } catch (err) {

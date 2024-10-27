@@ -17,6 +17,8 @@ router.post("/", async (req, res, next) => {
       });
     }
 
+    req.USER = user;
+
     return res.redirect("/");
   } catch (err) {
     console.log(err);
