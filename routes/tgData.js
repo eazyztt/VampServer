@@ -17,7 +17,15 @@ router.post("/", async (req, res, next) => {
       });
     }
 
-    req.USER = user;
+    req.USER = {
+      username: user.username,
+      money: user.money,
+      lastClaim: user.lastClaim,
+      lvl: user.lvl,
+      isHungry: user.isHungry,
+      isTired: user.isTired,
+      isDirty: user.isDirty,
+    };
 
     return res.redirect("/");
   } catch (err) {
