@@ -29,7 +29,15 @@ class UserService {
   static async getUserInfo(id) {
     const user = await User.findOne({
       where: { telegramId: id },
-      attributes: ["username", "money", "lastClaim", "lvl"],
+      attributes: [
+        "username",
+        "money",
+        "lastClaim",
+        "lvl",
+        "isHungry",
+        "isTired",
+        "isDirty",
+      ],
     });
 
     if (!user) {
