@@ -65,6 +65,9 @@ const User = sequelize.define(
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
+    sex: {
+      type: DataTypes.STRING,
+    },
   },
   {
     tableName: "users",

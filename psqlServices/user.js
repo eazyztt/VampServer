@@ -83,6 +83,12 @@ class UserService {
     }
   }
 
+  static async chooseSex(id, sex) {
+    const user = await User.findByPk(id);
+    user.sex = sex;
+    await user.save();
+  }
+
   static async updateUserLvl(id) {
     const user = await User.findByPk(id, {
       include: [

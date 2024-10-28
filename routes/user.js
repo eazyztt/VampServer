@@ -19,6 +19,15 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/sex", async (req, res) => {
+  const sex = req.body.sex;
+  try {
+    await UserService.chooseSex(req.tgId, sex);
+  } catch (e) {
+    return res.send(e.message);
+  }
+});
+
 router.get("/start", async (req, res) => {
   const id = req.query.startapp;
   const user = await VampStatus.updateStatus(req.tgId);
