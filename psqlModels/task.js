@@ -9,6 +9,10 @@ const Task = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    isCompleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
     description: {
       type: DataTypes.STRING,
       allowNull: true,

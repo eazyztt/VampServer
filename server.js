@@ -61,6 +61,15 @@ const verifyAuth = (req, res, next) => {
   next();
 };
 
+const deadVamp = (req, res, next) => {
+  const isDead = req.USER.isDead;
+  if (isDead) {
+    return res.send("Vamp is DEAD!");
+  }
+
+  next();
+};
+
 // Используем body-parser для парсинга JSON запросов
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -69,13 +78,13 @@ app.use(verifyAuth);
 
 app.use("/telegram-data", tgData);
 
-app.use("/", userRoute);
+app.use("/", deadVamp, userRoute);
 
-app.use("/tasks", tasks);
+app.use("/tasks", deadVamp, tasks);
 
-app.use("/friends", friends);
+app.use("/friends", deadVamp, friends);
 
-app.use("/", tamagochi);
+app.use("/", deadVamp, tamagochi);
 
 //app.use("/auth", authRouter);
 

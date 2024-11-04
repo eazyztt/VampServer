@@ -69,4 +69,13 @@ router.post("/updateLvl", async (req, res) => {
   }
 });
 
+router.get("/leaderboard", async (req, res) => {
+  try {
+    const users = await userService.leaderboard();
+    return res.send(users);
+  } catch (err) {
+    return res.send(err.message);
+  }
+});
+
 module.exports = router;

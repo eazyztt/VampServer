@@ -49,6 +49,10 @@ const User = sequelize.define(
       type: DataTypes.DATE,
       defaultValue: new Date(2005, 8, 2),
     },
+    lastPlayed: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(2005, 8, 2),
+    },
     isTired: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
@@ -58,6 +62,14 @@ const User = sequelize.define(
       defaultValue: true,
     },
     isDirty: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+    isDead: {
+      type: DataTypes.STRING,
+      defaultValue: false,
+    },
+    isBored: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     },

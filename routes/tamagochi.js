@@ -21,6 +21,15 @@ router.post("/feed", async (req, res) => {
   }
 });
 
+router.post("/rock", async (req, res) => {
+  try {
+    await VampStatus.rock(req.tgId);
+    res.send("Rock!");
+  } catch (e) {
+    return res.status(500).send(e.message);
+  }
+});
+
 router.post("/sleep", async (req, res) => {
   try {
     await VampStatus.sleep(req.tgId);

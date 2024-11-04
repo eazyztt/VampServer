@@ -26,4 +26,16 @@ router.post("/:taskId", async (req, res) => {
   }
 });
 
+router.post("/aprove", async (req, res) => {
+  const taskId = req.body.taskId;
+  const userId = req.body.userId;
+
+  try {
+    const aprovedTask = await TaskService.aproveTask(userId, taskId);
+    return res.send(aprovedTask);
+  } catch (e) {
+    return res.send(e.message);
+  }
+});
+
 module.exports = router;

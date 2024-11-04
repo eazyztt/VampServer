@@ -48,6 +48,25 @@ class TaskService {
     }
   }
 
+  static async aproveTask(userId, taskId) {
+    const user = await User.findByPk(userId, {
+      include: { model: Task, as: "tasks" }, // Подключаем задачи, связанные с пользователем
+    });
+    const targetTask = user.tasks.some((userTask) => userTask.id === task.id);
+
+    if (!targetTask) {
+      throw new Error("Task not found for this user");
+    }
+
+    targetTask.isCompleted = true;
+
+    await Task.update(
+      { isCompleted: true }, // Устанавливаем поле isCompleted в true
+      { where: { id: targetTask.id } } // Обновляем только задачу с определенным ID
+    );
+    return targetTask;
+  }
+
   static async getUserTasks(userId) {
     try {
       const user = await User.findByPk(userId, {

@@ -26,6 +26,14 @@ class UserService {
     return user;
   }
 
+  static async leaderboard() {
+    const users = await User.findAll({
+      order: [["money", "DESC"]],
+      limit: 20,
+    });
+    return users;
+  }
+
   static async getUserInfo(id) {
     const user = await User.findOne({
       where: { telegramId: id },
