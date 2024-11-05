@@ -39,7 +39,7 @@ router.get("/start", async (req, res) => {
       money: 1000,
       readyToClaim: true,
     });
-    FriendService.addUniqueFriend(id, req.tgId);
+    await FriendService.addUniqueFriend(id, req.tgId);
   }
   res.redirect("/");
 });
