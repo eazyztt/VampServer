@@ -14,8 +14,8 @@ const User = sequelize.define(
       allowNull: false,
     },
     money: {
-      type: DataTypes.STRING,
-      defaultValue: "1000",
+      type: DataTypes.NUMBER,
+      defaultValue: 1000,
     },
     readyToClaim: {
       type: DataTypes.BOOLEAN,
@@ -30,12 +30,12 @@ const User = sequelize.define(
       defaultValue: new Date(2005, 8, 2),
     },
     moneyForClaim: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.NUMBER,
       defaultValue: 0,
     },
     lvl: {
-      type: DataTypes.STRING,
-      defaultValue: "1",
+      type: DataTypes.NUMBER,
+      defaultValue: 1,
     },
     lastFed: {
       type: DataTypes.DATE,
@@ -80,6 +80,14 @@ const User = sequelize.define(
     sex: {
       type: DataTypes.STRING,
       defaultValue: "",
+    },
+    friendsInvited: {
+      type: DataTypes.NUMBER,
+      defaultValue: 0,
+    },
+    earnedPoint: {
+      type: DataTypes.NUMBER,
+      defaultValue: 0,
     },
   },
   {

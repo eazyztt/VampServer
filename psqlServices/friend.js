@@ -24,6 +24,10 @@ class FriendService {
 
     // Добавляем друга, если его ещё нет в списке друзей
     await user.addFriend(friend);
+    user.invitedFriends += 1; // логика инвайта
+    user.earnedPoint += 500;
+    await user.save(); // логика инвайта
+
     console.log(
       `${friend.username} успешно добавлен в друзья ${user.username}`
     );
@@ -35,9 +39,15 @@ class FriendService {
       const user = await User.findOne({ where: { telegramId: userId } });
       const existingFriends = await user.getFriends({
         attributes: ["username", "money", "lastClaim", "lvl"],
+        order: [["money", "DESC"]],
+        limit: 5,
       });
 
-      return existingFriends;
+      return {
+        friends: existingFriends,
+        friendsInvited: user.friendsInvited,
+        earnedPoint: user.earnedPoint,
+      };
     } catch (e) {
       return false;
     }

@@ -26,6 +26,23 @@ class UserService {
     return user;
   }
 
+  static async claimMoneyFromInvites(id) {
+    const user = await User.findOne({
+      where: { telegramId: id },
+    });
+
+    if (!user) {
+      return false;
+    }
+    user.money += user.earnedPoint;
+
+    user.earnedPoint = 0;
+
+    await user.save();
+
+    return user;
+  }
+
   static async leaderboard() {
     const users = await User.findAll({
       order: [["money", "DESC"]],
