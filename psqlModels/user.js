@@ -85,7 +85,7 @@ const User = sequelize.define(
       type: DataTypes.NUMBER,
       defaultValue: 0,
     },
-    earnedPoint: {
+    earned: {
       type: DataTypes.NUMBER,
       defaultValue: 0,
     },
