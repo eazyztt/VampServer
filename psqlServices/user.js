@@ -46,7 +46,8 @@ class UserService {
   static async leaderboard() {
     const users = await User.findAll({
       order: [["money", "DESC"]],
-      limit: 20,
+      attributes: ["username", "money", "lvl"],
+      limit: 10,
     });
     return users;
   }

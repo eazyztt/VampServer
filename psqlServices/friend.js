@@ -38,7 +38,7 @@ class FriendService {
     try {
       const user = await User.findOne({ where: { telegramId: userId } });
       const existingFriends = await user.getFriends({
-        attributes: ["username", "money", "lvl"],
+        attributes: ["username", "lvl", ["money", "earned"]],
         order: [["money", "DESC"]],
         limit: 5,
       });
