@@ -36,10 +36,10 @@ app.use(
     secret: process.env.COOKIE_KEY,
     resave: false,
     saveUninitialized: true,
-    cookie: {
-      secure: true, // установить true, если используете HTTPS
-      sameSite: "lax",
-    },
+    // cookie: {
+    //   secure: true, // установить true, если используете HTTPS
+    //   sameSite: "lax",
+    // },
   })
 );
 
