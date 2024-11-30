@@ -23,7 +23,8 @@ async function connectDB() {
   }
 }
 
-//app.set("trust proxy", 1);
+app.set("trust proxy", 1);
+
 app.use(
   cors({
     origin: "https://my-vamp-app.netlify.app",
@@ -36,10 +37,11 @@ app.use(
     secret: process.env.COOKIE_KEY,
     resave: false,
     saveUninitialized: true,
-    // cookie: {
-    //   secure: true, // установить true, если используете HTTPS
-    //   sameSite: "lax",
-    // },
+    cookie: {
+      secure: true, // установить true, если используете HTTPS
+      sameSite: "none",
+      domain: "vampserver-1.onrender.com",
+    },
   })
 );
 
