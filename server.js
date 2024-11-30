@@ -38,6 +38,7 @@ app.use(
     saveUninitialized: true,
     cookie: {
       secure: true, // установить true, если используете HTTPS
+      sameSite: "lax",
     },
   })
 );
