@@ -8,15 +8,13 @@ const UserService = require("../psqlServices/user");
 const FriendService = require("../psqlServices/friend");
 
 router.get("/", async (req, res) => {
-  try {
-    const user = req.USER;
+  const user = req.session.USER;
+  console.log(user);
 
-    return res.status(200).json(user);
-  } catch (err) {
-    console.log(err);
-
-    return res.status(400).send(err.message);
+  if (!user) {
+    return res.status(400).send("No user");
   }
+  return res.status(200).json(user);
 });
 
 router.post("/sex", async (req, res) => {

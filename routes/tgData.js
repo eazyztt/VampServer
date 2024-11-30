@@ -4,7 +4,7 @@ const UserService = require("../psqlServices/user");
 const cryptoId = require("../utilities/cryptoId");
 const VampStatus = require("../psqlServices/tamagochi");
 
-router.post("/", async (req, res, next) => {
+router.post("/", async (req, res) => {
   try {
     const user = await VampStatus.updateStatus(req.tgId);
 
@@ -17,7 +17,7 @@ router.post("/", async (req, res, next) => {
       });
     }
 
-    req.USER = {
+    req.session.USER = {
       username: user.username,
       money: user.money,
       lastClaim: user.lastClaim,
@@ -33,6 +33,7 @@ router.post("/", async (req, res, next) => {
     return res.redirect("/");
   } catch (err) {
     console.log(err);
+    return;
   }
 });
 
