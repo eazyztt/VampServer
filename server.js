@@ -62,7 +62,7 @@ const verifyAuth = (req, res, next) => {
 };
 
 const deadVamp = (req, res, next) => {
-  if (req.USER.isDead) {
+  if (req.USER) {
     const isDead = req.USER.isDead;
     if (isDead) {
       return res.send("Vamp is DEAD!");

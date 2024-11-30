@@ -27,6 +27,7 @@ router.post("/", async (req, res, next) => {
       isDirty: user.isDirty,
       isDead: user.isDead,
       isBored: user.isBored,
+      //place: user.place,
     };
 
     return res.redirect("/");
