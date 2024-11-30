@@ -66,7 +66,7 @@ const User = sequelize.define(
       defaultValue: true,
     },
     isDead: {
-      type: DataTypes.STRING,
+      type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
     isBored: {
