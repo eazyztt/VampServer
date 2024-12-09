@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
     req.session.USER = {
       username: user.username,
       money: user.money,
-      lvl: user.lvl,
+      lvl: "1",
       isHungry: user.isHungry,
       isTired: user.isTired,
       isDirty: user.isDirty,
