@@ -36,11 +36,10 @@ app.use(
   session({
     secret: process.env.COOKIE_KEY,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
       secure: true, // установить true, если используете HTTPS
       sameSite: "none",
-      domain: "vampserver-1.onrender.com",
     },
   })
 );

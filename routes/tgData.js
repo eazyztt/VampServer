@@ -30,6 +30,12 @@ router.post("/", async (req, res) => {
       //place: user.place,
     };
 
+    req.session.save((err) => {
+      if (err) {
+        console.error("Ошибка сохранения сессии:", err);
+      }
+    });
+
     return res.redirect("/");
   } catch (err) {
     console.log(err);
