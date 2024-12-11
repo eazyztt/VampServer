@@ -23,14 +23,14 @@ async function connectDB() {
   }
 }
 
-//app.set("trust proxy", 1);
+app.set("trust proxy", 1);
 
-// app.use(
-//   cors({
-//     origin: "https://my-vamp-app.netlify.app",
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: "https://my-vamp-app.netlify.app",
+    credentials: true,
+  })
+);
 
 // app.use(
 //   session({
