@@ -36,7 +36,7 @@ router.post("/", async (req, res) => {
       }
     });
 
-    return res.send("good");
+    return res.json(req.session.USER);
   } catch (err) {
     console.log(err);
     return;
