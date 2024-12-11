@@ -38,7 +38,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false, // установить true, если используете HTTPS
+      secure: true, // установить true, если используете HTTPS
       sameSite: "lax",
     },
   })
