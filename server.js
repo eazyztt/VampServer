@@ -38,8 +38,8 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: true, // установить true, если используете HTTPS
-      sameSite: "none",
+      secure: false, // установить true, если используете HTTPS
+      sameSite: "lax",
     },
   })
 );
