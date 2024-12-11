@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
   const userForClient = {
     username: user.username,
     money: user.money,
-    lvl: "1",
+    lvl: user.lvl,
     isHungry: user.isHungry,
     isTired: user.isTired,
     isDirty: user.isDirty,
