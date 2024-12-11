@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
       });
     }
 
-    req.session.USER = {
+    req.USER = {
       username: user.username,
       money: user.money,
       lvl: "1",
@@ -36,7 +36,7 @@ router.post("/", async (req, res) => {
       }
     });
 
-    return res.json(req.session.USER);
+    return res.json(req.USER);
   } catch (err) {
     console.log(err);
     return;

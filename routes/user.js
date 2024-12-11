@@ -8,7 +8,7 @@ const UserService = require("../psqlServices/user");
 const FriendService = require("../psqlServices/friend");
 
 router.get("/", async (req, res) => {
-  const user = req.session.USER;
+  const user = req.USER;
   console.log(user);
 
   if (!user) {
