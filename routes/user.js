@@ -8,13 +8,26 @@ const UserService = require("../psqlServices/user");
 const FriendService = require("../psqlServices/friend");
 
 router.get("/", async (req, res) => {
-  const user = req.USER;
-  console.log(user);
+  const user = await UserService.getFullUser(req.tgId);
+
+  const userForClient = {
+    username: user.username,
+    money: user.money,
+    lvl: "1",
+    isHungry: user.isHungry,
+    isTired: user.isTired,
+    isDirty: user.isDirty,
+    isDead: user.isDead,
+    isBored: user.isBored,
+    sex: user.sex,
+  };
+
+  console.log(userForClient);
 
   if (!user) {
     return res.status(400).send("No user");
   }
-  return res.status(200).json(user);
+  return res.status(200).json(userForClient);
 });
 
 router.post("/sex", async (req, res) => {

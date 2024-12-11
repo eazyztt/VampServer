@@ -17,26 +17,7 @@ router.post("/", async (req, res) => {
       });
     }
 
-    req.USER = {
-      username: user.username,
-      money: user.money,
-      lvl: "1",
-      isHungry: user.isHungry,
-      isTired: user.isTired,
-      isDirty: user.isDirty,
-      isDead: user.isDead,
-      isBored: user.isBored,
-      sex: user.sex,
-      //place: user.place,
-    };
-
-    req.session.save((err) => {
-      if (err) {
-        console.error("Ошибка сохранения сессии:", err);
-      }
-    });
-
-    return res.json(req.USER);
+    return res.json(user);
   } catch (err) {
     console.log(err);
     return;
