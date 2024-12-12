@@ -8,7 +8,7 @@ const UserService = require("../psqlServices/user");
 const FriendService = require("../psqlServices/friend");
 
 router.get("/", async (req, res) => {
-  const user = await UserService.getFullUser(req.tgId);
+  const user = await UserService.getFullUser("6571245334");
 
   const userForClient = {
     username: user.username,
