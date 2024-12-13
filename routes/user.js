@@ -32,6 +32,7 @@ router.get("/", async (req, res) => {
 
 router.post("/sex", async (req, res) => {
   const sex = req.body.sex;
+  console.log(JSON.stringify(req.body));
 
   try {
     const user = await UserService.chooseSex("6571245334", sex);
