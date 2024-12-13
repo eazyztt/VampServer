@@ -33,7 +33,7 @@ router.get("/", async (req, res) => {
 router.post("/sex", async (req, res) => {
   const sex = req.body.sex;
   try {
-    const user = await UserService.chooseSex(req.tgId, sex);
+    const user = await UserService.chooseSex("6571245334", sex);
     res.send(user);
   } catch (e) {
     return res.send(e.message);
