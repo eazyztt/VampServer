@@ -31,7 +31,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/sex", async (req, res) => {
-  const sex = req.body.sex;
+  const sex = req.body;
   console.log(`sex from front ${sex}`);
 
   try {
