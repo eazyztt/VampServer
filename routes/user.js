@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
   console.log(userForClient);
 
   if (!user) {
-    return res.status(400).send("No user");
+    return res.status(400).send("No user1");
   }
   return res.status(200).json(userForClient);
 });
