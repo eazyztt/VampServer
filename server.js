@@ -26,23 +26,23 @@ async function connectDB() {
 app.set("trust proxy", 1);
 
 app.use(
+  session({
+    secret: process.env.COOKIE_KEY,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: true, // установить true, если используете HTTPS
+      sameSite: "none",
+    },
+  })
+);
+
+app.use(
   cors({
     origin: "https://my-vamp-app.netlify.app",
     credentials: true,
   })
 );
-
-// app.use(
-//   session({
-//     secret: process.env.COOKIE_KEY,
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: {
-//       secure: true, // установить true, если используете HTTPS
-//       sameSite: "lax",
-//     },
-//   })
-// );
 
 const verifyAuth = (req, res, next) => {
   const authHeader = req.headers["authorization"];
