@@ -34,7 +34,7 @@ router.post("/sex", async (req, res) => {
   const sex = req.body;
   console.log(sex);
 
-  const sexJSON = JSON.parse(sex);
+  const sexJSON = JSON.parse(sex.sex);
   const sexProp = sexJSON.sex;
   console.log(sexProp);
 
