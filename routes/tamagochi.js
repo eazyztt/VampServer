@@ -6,7 +6,7 @@ const router = express.Router();
 router.post("/wash", async (req, res) => {
   try {
     await VampStatus.wash(req.tgId);
-    res.send("Washed!");
+    res.send({ wash: "yes" });
   } catch (e) {
     return res.status(500).send(e.message);
   }
@@ -15,7 +15,7 @@ router.post("/wash", async (req, res) => {
 router.post("/feed", async (req, res) => {
   try {
     await VampStatus.feed(req.tgId);
-    res.send("Feed!");
+    res.send({ feed: "yes" });
   } catch (e) {
     return res.status(500).send(e.message);
   }
@@ -24,7 +24,7 @@ router.post("/feed", async (req, res) => {
 router.post("/rock", async (req, res) => {
   try {
     await VampStatus.rock(req.tgId);
-    res.send("Rock!");
+    res.send({ rock: "yes" });
   } catch (e) {
     return res.status(500).send(e.message);
   }
@@ -33,7 +33,7 @@ router.post("/rock", async (req, res) => {
 router.post("/sleep", async (req, res) => {
   try {
     await VampStatus.sleep(req.tgId);
-    res.send("Slept!");
+    res.send({ sleep: "yes" });
   } catch (e) {
     return res.status(500).send(e.message);
   }
