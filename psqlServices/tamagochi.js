@@ -52,52 +52,56 @@ class VampStatus {
     const user = await User.findByPk(id);
 
     if (now - user.lastFed < eightHoursInMs) {
-      throw new Error("Too early to feed!");
+      return { early: "yes" };
     }
 
     user.lastFed = new Date();
     user.isHungry = false;
     user.exp += 50;
     await user.save();
+    return user;
   }
 
   static async wash(id) {
     const user = await User.findByPk(id);
 
     if (now - user.lastWashed < eightHoursInMs) {
-      throw new Error("Too early to wash!");
+      return { early: "yes" };
     }
 
     user.lastWashed = new Date();
     user.isDirty = false;
     user.exp += 50;
     await user.save();
+    return user;
   }
 
   static async sleep(id) {
     const user = await User.findByPk(id);
 
     if (now - user.lastFed < eightHoursInMs) {
-      throw new Error("Too early to sleep!");
+      return { early: "yes" };
     }
 
     user.lastSlept = new Date();
     user.isTired = false;
     user.exp += 50;
     await user.save();
+    return user;
   }
 
   static async rock(id) {
     const user = await User.findByPk(id);
 
     if (now - user.lastFed < eightHoursInMs) {
-      throw new Error("Too early to rock!");
+      return { early: "yes" };
     }
 
     user.lastPlayed = new Date();
     user.isBored = false;
     user.exp += 50;
     await user.save();
+    return user;
   }
 }
 

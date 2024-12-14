@@ -14,8 +14,8 @@ router.post("/wash", async (req, res) => {
 
 router.post("/feed", async (req, res) => {
   try {
-    await VampStatus.feed(req.tgId);
-    res.send({ feed: "yes" });
+    const user = await VampStatus.feed(req.tgId);
+    res.send(user);
   } catch (e) {
     return res.status(500).send(e.message);
   }
@@ -23,8 +23,8 @@ router.post("/feed", async (req, res) => {
 
 router.post("/rock", async (req, res) => {
   try {
-    await VampStatus.rock(req.tgId);
-    res.send({ rock: "yes" });
+    const user = await VampStatus.rock(req.tgId);
+    res.send(user);
   } catch (e) {
     return res.status(500).send(e.message);
   }
@@ -32,8 +32,8 @@ router.post("/rock", async (req, res) => {
 
 router.post("/sleep", async (req, res) => {
   try {
-    await VampStatus.sleep(req.tgId);
-    res.send({ sleep: "yes" });
+    const user = await VampStatus.sleep(req.tgId);
+    res.send(user);
   } catch (e) {
     return res.status(500).send(e.message);
   }
