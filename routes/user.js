@@ -8,7 +8,7 @@ const UserService = require("../psqlServices/user");
 const FriendService = require("../psqlServices/friend");
 
 router.get("/", async (req, res) => {
-  const user = await UserService.getFullUser("6571245334");
+  const user = await UserService.getFullUser(req.tgId);
 
   const userForClient = {
     username: user.username,
@@ -39,7 +39,7 @@ router.post("/sex", async (req, res) => {
   console.log(sexProp);
 
   try {
-    const user = await UserService.chooseSex("6571245334", sexProp);
+    const user = await UserService.chooseSex(req.tgId, sexProp);
     res.send(user);
   } catch (e) {
     return res.send(e.message);

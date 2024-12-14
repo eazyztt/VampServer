@@ -6,7 +6,7 @@ const VampStatus = require("../psqlServices/tamagochi");
 
 router.post("/", async (req, res) => {
   try {
-    const user = await VampStatus.updateStatus("6571245334");
+    const user = await VampStatus.updateStatus(req.tgId);
 
     if (!user || user == null) {
       await UserService.create({
