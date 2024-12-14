@@ -36,6 +36,8 @@ router.post("/sex", async (req, res) => {
 
   const sexJSON = JSON.parse(sex);
   const sexProp = sexJSON.sex;
+  console.log(sexProp);
+
   try {
     const user = await UserService.chooseSex("6571245334", sexProp);
     res.send(user);
