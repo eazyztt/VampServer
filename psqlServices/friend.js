@@ -47,6 +47,7 @@ class FriendService {
         friends: existingFriends,
         friendsInvited: user.friendsInvited,
         earned: user.earned,
+        place: user.place,
       };
     } catch (e) {
       return false;

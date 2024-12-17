@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.post("/wash", async (req, res) => {
   try {
-    await VampStatus.wash(req.tgId);
-    res.send({ wash: "yes" });
+    const user = await VampStatus.wash(req.tgId);
+    res.send(user);
   } catch (e) {
     return res.status(500).send(e.message);
   }

@@ -8,7 +8,7 @@ router.post("/leaderboard", async (req, res) => {
     await handCall.updateLeaderboard();
     return res.send("leaderboard updated");
   } catch (err) {
-    res.status(400).send(err);
+    return res.status(400).send(err);
   }
 });
 

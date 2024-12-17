@@ -25,6 +25,17 @@ class VampStatus {
       user.isDead = true;
     }
 
+    //Логика для проверки первые ли разы заходит юзер
+
+    if (
+      (user.lastFed == new Date("2005-09-02T00:00:00Z") &&
+        user.lastPlayed == new Date("2005-09-02T00:00:00Z") &&
+        user.lastSlept == new Date("2005-09-02T00:00:00Z")) ||
+      user.lastWashed == new Date("2005-09-02T00:00:00Z")
+    ) {
+      user.isDead == false;
+    }
+
     // Проверка времени кормления
     if (now - user.lastFed > eightHoursInMs) {
       user.isHungry = true;
