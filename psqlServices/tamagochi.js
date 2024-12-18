@@ -62,6 +62,9 @@ class VampStatus {
   static async feed(id) {
     const user = await User.findByPk(id);
 
+    const now = new Date();
+    const eightHoursInMs = 8 * 60 * 60 * 1000;
+
     if (now - user.lastFed < eightHoursInMs) {
       return { early: "yes" };
     }
@@ -75,6 +78,9 @@ class VampStatus {
 
   static async wash(id) {
     const user = await User.findByPk(id);
+
+    const now = new Date();
+    const eightHoursInMs = 8 * 60 * 60 * 1000;
 
     if (now - user.lastWashed < eightHoursInMs) {
       return { early: "yes" };
@@ -90,6 +96,9 @@ class VampStatus {
   static async sleep(id) {
     const user = await User.findByPk(id);
 
+    const now = new Date();
+    const eightHoursInMs = 8 * 60 * 60 * 1000;
+
     if (now - user.lastFed < eightHoursInMs) {
       return { early: "yes" };
     }
@@ -103,6 +112,9 @@ class VampStatus {
 
   static async rock(id) {
     const user = await User.findByPk(id);
+
+    const now = new Date();
+    const eightHoursInMs = 8 * 60 * 60 * 1000;
 
     if (now - user.lastFed < eightHoursInMs) {
       return { early: "yes" };
