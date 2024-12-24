@@ -57,7 +57,13 @@ class TaskService {
       // Возвращаем обновленный список задач пользователя
       const updatedUserTasks = await Task.findAll({ where: { userId } });
 
-      return { success: true, tasks: updatedUserTasks };
+      return {
+        tasks: updatedUserTasks,
+        lvl: user.lvl,
+        sex: user.sex,
+        points: user.money,
+        finalPoints: 2000,
+      };
     } catch (error) {
       console.error("Ошибка при синхронизации задач:", error);
       throw new Error("Не удалось синхронизировать задачи.");
