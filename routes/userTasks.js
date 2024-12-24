@@ -10,7 +10,7 @@ const TaskService = require("../psqlServices/task");
 router.get("/", async (req, res) => {
   try {
     const userTasks = await TaskService.syncTasksWithUser(req.tgId);
-    res.status(200).json(userTasks.tasks);
+    res.status(200).json(userTasks);
   } catch (err) {
     res.status(400).send(err.message);
   }
