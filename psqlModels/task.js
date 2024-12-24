@@ -9,13 +9,13 @@ const Task = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    isCompleted: {
+    isProgress: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: true,
+    isCompleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     link: {
       type: DataTypes.STRING,

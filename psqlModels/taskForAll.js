@@ -10,10 +10,6 @@ TaskAll.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     link: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -21,6 +17,14 @@ TaskAll.init(
     lvl: {
       type: DataTypes.INTEGER,
       allowNull: true,
+    },
+    isProgress: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    isCompleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {

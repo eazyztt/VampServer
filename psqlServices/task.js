@@ -3,90 +3,90 @@ const Task = require("../psqlModels/task"); // Импортируем модел
 const TaskAll = require("../psqlModels/taskForAll");
 
 class TaskService {
-  static async getAllTasks() {
+  // Синхронизация задач из TaskAll с задачами пользователя
+  static async syncTasksWithUser(userId) {
     try {
-      const tasks = await TaskAll.findAll(); // Находим все задачи
-      return tasks;
-    } catch (error) {
-      console.error("Error fetching all tasks:", error);
-      throw error;
-    }
-  }
-
-  static async completeTask(userId, taskId) {
-    try {
-      const user = await User.findByPk(userId, {
-        include: { model: Task, as: "tasks" }, // Подключаем задачи, связанные с пользователем
-      });
-      if (!user) throw new Error("User not found");
-
-      const task = await TaskAll.findByPk(taskId); // Находим задачу из общей модели TaskAll
-      if (!task) throw new Error("Task not found");
-
-      // Проверяем, завершена ли задача пользователем
-      const isTaskCompleted = user.tasks.some(
-        (userTask) => userTask.id === task.id
-      );
-      if (isTaskCompleted) {
-        throw new Error("Task already completed");
-      }
-
-      // Создаём копию задачи для пользователя
-      const userTask = await Task.create({
-        title: task.title,
-        description: task.description,
-        link: task.link,
-        lvl: task.lvl,
-        userId: user.telegramId,
-      });
-
-      await user.reload(); // Обновляем пользователя с новыми задачами
-      return user.tasks;
-    } catch (error) {
-      console.error("Error completing task:", error);
-      throw error;
-    }
-  }
-
-  static async aproveTask(userId, taskId) {
-    const user = await User.findByPk(userId, {
-      include: { model: Task, as: "tasks" }, // Подключаем задачи, связанные с пользователем
-    });
-    const targetTask = user.tasks.some((userTask) => userTask.id === task.id);
-
-    if (!targetTask) {
-      throw new Error("Task not found for this user");
-    }
-
-    targetTask.isCompleted = true;
-
-    await Task.update(
-      { isCompleted: true }, // Устанавливаем поле isCompleted в true
-      { where: { id: targetTask.id } } // Обновляем только задачу с определенным ID
-    );
-    return targetTask;
-  }
-
-  static async getUserTasks(userId) {
-    try {
-      const user = await User.findByPk(userId, {
-        include: { model: Task, as: "tasks" },
-      });
+      // Получаем пользователя с уровнем
+      const user = await User.findOne({ where: { telegramId: userId } });
       if (!user) {
-        throw new Error("No user in db");
+        throw new Error("Пользователь не найден.");
       }
 
-      // Собираем задачи пользователя
-      const tasks = user.tasks.map((task) => ({
-        lvl: task.lvl,
-        title: task.title,
-        description: task.description,
-      }));
+      // Получаем все задачи из TaskAll, соответствующие уровню пользователя
+      const allTasks = await TaskAll.findAll({ where: { lvl: user.lvl } });
 
-      return tasks;
+      // Получаем задачи пользователя
+      const userTasks = await Task.findAll({ where: { userId } });
+
+      // Преобразуем задачи пользователя в объект для быстрого поиска по title
+      const userTasksMap = userTasks.reduce((acc, task) => {
+        acc[task.title] = task;
+        return acc;
+      }, {});
+
+      // Итерация по задачам из TaskAll
+      for (const task of allTasks) {
+        if (userTasksMap[task.title]) {
+          // Если задача уже есть у пользователя, проверяем и обновляем изменения
+          const existingTask = userTasksMap[task.title];
+          if (
+            existingTask.link !== task.link ||
+            existingTask.isProgress !== task.isProgress ||
+            existingTask.isCompleted !== task.isCompleted
+          ) {
+            await existingTask.update({
+              link: task.link,
+              isProgress: task.isProgress,
+              isCompleted: task.isCompleted,
+            });
+          }
+        } else {
+          // Если задачи нет у пользователя, создаем новую
+          await Task.create({
+            id: task.id,
+            title: task.title,
+            link: task.link,
+            lvl: task.lvl,
+            isProgress: task.isProgress,
+            isCompleted: task.isCompleted,
+            userId,
+          });
+        }
+      }
+
+      // Возвращаем обновленный список задач пользователя
+      const updatedUserTasks = await Task.findAll({ where: { userId } });
+
+      return { success: true, tasks: updatedUserTasks };
     } catch (error) {
-      console.error("Error fetching user tasks:", error);
-      throw error;
+      console.error("Ошибка при синхронизации задач:", error);
+      throw new Error("Не удалось синхронизировать задачи.");
+    }
+  }
+
+  // Обновление статуса задачи на isProgress = true
+  static async markTaskInProgress(taskId, userId) {
+    try {
+      // Находим задачу пользователя
+      const task = await Task.findOne({
+        where: { id: taskId, userId },
+      });
+
+      if (!task) {
+        return { success: false, message: "Задача не найдена." };
+      }
+
+      // Обновляем статус задачи
+      await task.update({ isProgress: true });
+
+      return {
+        success: true,
+        message: "Задача отмечена как выполняющаяся.",
+        task,
+      };
+    } catch (error) {
+      console.error("Ошибка при обновлении задачи:", error);
+      throw new Error("Не удалось обновить статус задачи.");
     }
   }
 }
