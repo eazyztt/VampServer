@@ -69,9 +69,21 @@ class VampStatus {
       return { early: "yes" };
     }
 
+    const experience = 0;
+
+    if (user.lvl === 1) {
+      experience = 100;
+    } else if (user.lvl === 2) {
+      experience = 200;
+    } else if (user.lvl === 3) {
+      experience = 300;
+    } else if (user.lvl === 4) {
+      experience = 400;
+    }
+
     user.lastFed = new Date();
     user.isHungry = false;
-    user.exp += 50;
+    user.money += experience;
     await user.save();
     return user;
   }
@@ -86,9 +98,21 @@ class VampStatus {
       return { early: "yes" };
     }
 
+    const experience = 0;
+
+    if (user.lvl === 1) {
+      experience = 100;
+    } else if (user.lvl === 2) {
+      experience = 200;
+    } else if (user.lvl === 3) {
+      experience = 300;
+    } else if (user.lvl === 4) {
+      experience = 400;
+    }
+
     user.lastWashed = new Date();
     user.isDirty = false;
-    user.exp += 50;
+    user.money += experience;
     await user.save();
     return user;
   }
@@ -103,9 +127,21 @@ class VampStatus {
       return { early: "yes" };
     }
 
+    const experience = 0;
+
+    if (user.lvl === 1) {
+      experience = 100;
+    } else if (user.lvl === 2) {
+      experience = 200;
+    } else if (user.lvl === 3) {
+      experience = 300;
+    } else if (user.lvl === 4) {
+      experience = 400;
+    }
+
     user.lastSlept = new Date();
     user.isTired = false;
-    user.exp += 50;
+    user.money += experience;
     await user.save();
     return user;
   }
@@ -120,9 +156,21 @@ class VampStatus {
       return { early: "yes" };
     }
 
+    const experience = 0;
+
+    if (user.lvl === 1) {
+      experience = 100;
+    } else if (user.lvl === 2) {
+      experience = 200;
+    } else if (user.lvl === 3) {
+      experience = 300;
+    } else if (user.lvl === 4) {
+      experience = 400;
+    }
+
     user.lastPlayed = new Date();
     user.isBored = false;
-    user.exp += 50;
+    user.money += experience;
     await user.save();
     return user;
   }
