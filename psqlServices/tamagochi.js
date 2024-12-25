@@ -14,13 +14,13 @@ class VampStatus {
 
     const now = new Date();
     const eightHoursInMs = 8 * 60 * 60 * 1000;
-    const twelveHoursInMs = 12 * 60 * 60 * 1000;
+    const twentyFourHours = 24 * 60 * 60 * 1000;
 
     if (
-      now - user.lastFed > twelveHoursInMs ||
-      now - user.lastWashed > twelveHoursInMs ||
-      now - user.lastSlept > twelveHoursInMs ||
-      now - user.lastPlayed > twelveHoursInMs
+      now - user.lastFed > twentyFourHours ||
+      now - user.lastWashed > twentyFourHours ||
+      now - user.lastSlept > twentyFourHours ||
+      now - user.lastPlayed > twentyFourHours
     ) {
       user.isDead = true;
     }
