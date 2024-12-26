@@ -33,7 +33,7 @@ class VampStatus {
       user.lastSlept <= new Date("2005-09-02T20:00:00Z") &&
       user.lastWashed <= new Date("2005-09-02T20:00:00Z")
     ) {
-      user.isDead == false;
+      user.isDead = false;
     }
 
     // Проверка времени кормления
