@@ -23,6 +23,10 @@ async function connectDB() {
   }
 }
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+
 app.set("trust proxy", 1);
 
 app.use(
@@ -75,8 +79,6 @@ const deadVamp = (req, res, next) => {
 };
 
 // Используем body-parser для парсинга JSON запросов
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(verifyAuth);
 

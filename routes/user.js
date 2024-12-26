@@ -31,15 +31,11 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/sex", async (req, res) => {
-  const sex = req.body;
+  const { sex } = req.body;
   console.log(sex);
 
-  const sexJSON = JSON.parse(sex.sex);
-  const sexProp = sexJSON.sex;
-  console.log(sexProp);
-
   try {
-    const user = await UserService.chooseSex(req.tgId, sexProp);
+    const user = await UserService.chooseSex(req.tgId, sex);
     res.send(user);
   } catch (e) {
     return res.send(e);
