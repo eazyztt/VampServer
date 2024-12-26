@@ -150,6 +150,76 @@ class UserService {
       return false;
     }
   }
+
+  static async updateUserLevel(userId) {
+    try {
+      // Находим пользователя по ID
+      const user = await User.findByPk(userId);
+
+      if (!user) {
+        console.log(`Пользователь с ID ${userId} не найден.`);
+        return;
+      }
+
+      const { lvl, money } = user;
+      let completedTasksCount;
+
+      if (lvl === 1 && money >= 10000) {
+        // Проверяем выполненные задачи уровня 1
+        completedTasksCount = await Task.count({
+          where: {
+            userId,
+            lvl: 1,
+            isCompleted: true,
+          },
+        });
+
+        // Если выполнено 4 задачи уровня 1, обновляем уровень на 2
+        if (completedTasksCount >= 4) {
+          await user.update({ lvl: 2 });
+          console.log(`Пользователь ${userId} повысил уровень с 1 до 2.`);
+        }
+      }
+
+      if (lvl === 2 && money >= 25000) {
+        // Проверяем выполненные задачи уровня 2
+        completedTasksCount = await Task.count({
+          where: {
+            userId,
+            lvl: 2,
+            isCompleted: true,
+          },
+        });
+
+        // Если выполнено 3 задачи уровня 2, обновляем уровень на 3
+        if (completedTasksCount >= 3) {
+          await user.update({ lvl: 3 });
+          console.log(`Пользователь ${userId} повысил уровень с 2 до 3.`);
+        }
+      }
+
+      if (lvl === 3 && money >= 50000) {
+        // Проверяем выполненные задачи уровня 3
+        completedTasksCount = await Task.count({
+          where: {
+            userId,
+            lvl: 3,
+            isCompleted: true,
+          },
+        });
+
+        // Если выполнена 1 задача уровня 3, обновляем уровень на 4
+        if (completedTasksCount >= 1) {
+          await user.update({ lvl: 4 });
+          console.log(`Пользователь ${userId} повысил уровень с 3 до 4.`);
+        }
+      }
+      return user;
+    } catch (error) {
+      console.error("Ошибка при обновлении уровня пользователя:", error);
+      throw new Error("Не удалось обновить уровень пользователя.");
+    }
+  }
 }
 
 module.exports = UserService;

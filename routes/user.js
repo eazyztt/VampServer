@@ -42,7 +42,7 @@ router.post("/sex", async (req, res) => {
     const user = await UserService.chooseSex(req.tgId, sexProp);
     res.send(user);
   } catch (e) {
-    return res.send(e.message);
+    return res.send(e);
   }
 });
 
@@ -83,8 +83,8 @@ router.post("/updateLvl", async (req, res) => {
   try {
     const userLvlUpdate = await userService.updateUserLvl(id);
     return res.send(userLvlUpdate);
-  } catch (err) {
-    return res.send(err);
+  } catch (e) {
+    return res.send(e);
   }
 });
 
@@ -92,8 +92,17 @@ router.get("/leaderboard", async (req, res) => {
   try {
     const users = await userService.leaderboard();
     return res.send(users);
-  } catch (err) {
-    return res.send(err.message);
+  } catch (e) {
+    return res.send(e);
+  }
+});
+
+router.post("/updateLvl", async (req, res) => {
+  try {
+    const user = await userService.updateUserLevel(req.tgId);
+    res.send(user);
+  } catch (e) {
+    res.send(e);
   }
 });
 
