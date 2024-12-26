@@ -111,7 +111,7 @@ class VampStatus {
 
     if (
       now - user.lastWashed < eightHoursInMs &&
-      user.lastFed > new Date("2005-09-02T20:00:00Z")
+      user.lastWashed > new Date("2005-09-02T20:00:00Z")
     ) {
       return { early: "yes" };
     }
@@ -142,8 +142,8 @@ class VampStatus {
     const eightHoursInMs = 8 * 60 * 60 * 1000;
 
     if (
-      now - user.lastFed < eightHoursInMs &&
-      user.lastFed > new Date("2005-09-02T20:00:00Z")
+      now - user.lastSlept < eightHoursInMs &&
+      user.lastSlept > new Date("2005-09-02T20:00:00Z")
     ) {
       return { early: "yes" };
     }
@@ -174,8 +174,8 @@ class VampStatus {
     const eightHoursInMs = 8 * 60 * 60 * 1000;
 
     if (
-      now - user.lastFed < eightHoursInMs &&
-      user.lastFed > new Date("2005-09-02T20:00:00Z")
+      now - user.lastPlayed < eightHoursInMs &&
+      user.lastPlayed > new Date("2005-09-02T20:00:00Z")
     ) {
       return { early: "yes" };
     }
