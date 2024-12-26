@@ -37,21 +37,33 @@ class VampStatus {
     }
 
     // Проверка времени кормления
-    if (now - user.lastFed > eightHoursInMs) {
+    if (
+      now - user.lastFed > eightHoursInMs &&
+      user.lastFed > new Date("2005-09-02T20:00:00Z")
+    ) {
       user.isHungry = true;
     }
 
-    if (now - user.lastFed > eightHoursInMs) {
+    if (
+      now - user.lastFed > eightHoursInMs &&
+      user.lastFed > new Date("2005-09-02T20:00:00Z")
+    ) {
       user.isBored = true;
     }
 
     // Проверка времени мытья
-    if (now - user.lastWashed > eightHoursInMs) {
+    if (
+      now - user.lastWashed > eightHoursInMs &&
+      user.lastFed > new Date("2005-09-02T20:00:00Z")
+    ) {
       user.isDirty = true;
     }
 
     // Проверка времени сна
-    if (now - user.lastSlept > eightHoursInMs) {
+    if (
+      now - user.lastSlept > eightHoursInMs &&
+      user.lastFed > new Date("2005-09-02T20:00:00Z")
+    ) {
       user.isTired = true;
     }
 
@@ -65,7 +77,10 @@ class VampStatus {
     const now = new Date();
     const eightHoursInMs = 8 * 60 * 60 * 1000;
 
-    if (now - user.lastFed < eightHoursInMs) {
+    if (
+      now - user.lastFed < eightHoursInMs &&
+      user.lastFed > new Date("2005-09-02T20:00:00Z")
+    ) {
       return { early: "yes" };
     }
 
@@ -94,7 +109,10 @@ class VampStatus {
     const now = new Date();
     const eightHoursInMs = 8 * 60 * 60 * 1000;
 
-    if (now - user.lastWashed < eightHoursInMs) {
+    if (
+      now - user.lastWashed < eightHoursInMs &&
+      user.lastFed > new Date("2005-09-02T20:00:00Z")
+    ) {
       return { early: "yes" };
     }
 
@@ -123,7 +141,10 @@ class VampStatus {
     const now = new Date();
     const eightHoursInMs = 8 * 60 * 60 * 1000;
 
-    if (now - user.lastFed < eightHoursInMs) {
+    if (
+      now - user.lastFed < eightHoursInMs &&
+      user.lastFed > new Date("2005-09-02T20:00:00Z")
+    ) {
       return { early: "yes" };
     }
 
@@ -152,7 +173,10 @@ class VampStatus {
     const now = new Date();
     const eightHoursInMs = 8 * 60 * 60 * 1000;
 
-    if (now - user.lastFed < eightHoursInMs) {
+    if (
+      now - user.lastFed < eightHoursInMs &&
+      user.lastFed > new Date("2005-09-02T20:00:00Z")
+    ) {
       return { early: "yes" };
     }
 
