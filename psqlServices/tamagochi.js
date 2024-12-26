@@ -84,7 +84,7 @@ class VampStatus {
       return { early: "yes" };
     }
 
-    const experience = 0;
+    let experience = 0;
 
     if (user.lvl === 1) {
       experience = 100;
@@ -116,7 +116,7 @@ class VampStatus {
       return { early: "yes" };
     }
 
-    const experience = 0;
+    let experience = 0;
 
     if (user.lvl === 1) {
       experience = 100;
@@ -148,7 +148,7 @@ class VampStatus {
       return { early: "yes" };
     }
 
-    const experience = 0;
+    let experience = 0;
 
     if (user.lvl === 1) {
       experience = 100;
@@ -180,7 +180,7 @@ class VampStatus {
       return { early: "yes" };
     }
 
-    const experience = 0;
+    let experience = 0;
 
     if (user.lvl === 1) {
       experience = 100;
