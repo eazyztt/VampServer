@@ -43,7 +43,6 @@ class TaskService {
         } else {
           // Если задачи нет у пользователя, создаем новую
           await Task.create({
-            id: task.id,
             title: task.title,
             link: task.link,
             lvl: task.lvl,
