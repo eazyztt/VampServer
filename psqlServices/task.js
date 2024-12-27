@@ -43,6 +43,7 @@ class TaskService {
         } else {
           // Если задачи нет у пользователя, создаем новую
           await Task.create({
+            mainTaskId: task.id,
             title: task.title,
             link: task.link,
             lvl: task.lvl,
@@ -71,10 +72,12 @@ class TaskService {
 
   // Обновление статуса задачи на isProgress = true
   static async markTaskInProgress(taskId, userId) {
+    console.log(`this is task id ${taskId}`);
+
     try {
       // Находим задачу пользователя
       const task = await Task.findOne({
-        where: { id: taskId, userId },
+        where: { id: taskId, userId: userId },
       });
 
       if (!task) {
