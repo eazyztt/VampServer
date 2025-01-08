@@ -73,12 +73,25 @@ class TaskService {
   // Обновление статуса задачи на isProgress = true
   static async markTaskInProgress(taskId, userId) {
     console.log(`this is task id ${taskId}`);
-
+    if (taskId === 432467) {
+      const user = await User.findOne({ where: { telegramId: userId } });
+      if (user.friendsInvited !== 1) {
+        return { success: false, message: "Условия не выполнены." };
+      }
+    }
+    if (taskId === 434890) {
+      const user = await User.findOne({ where: { telegramId: userId } });
+      if (user.friendsInvited !== 3) {
+        return { success: false, message: "Условия не выполнены." };
+      }
+    }
     try {
       // Находим задачу пользователя
       const task = await Task.findOne({
         where: { id: taskId, userId: userId },
       });
+
+      console.log(`this is our task ${task}`);
 
       if (!task) {
         return { success: false, message: "Задача не найдена." };
