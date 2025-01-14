@@ -61,7 +61,7 @@ router.get("/start", async (req, res) => {
 
 router.get("/ref", async (req, res) => {
   const hash = `t.me/vamp_pump_bot/vamp_app/start?startapp=${req.tgId}`;
-  return res.send(hash);
+  return res.json({ hash: hash });
 });
 
 router.post("/claim", async (req, res) => {
