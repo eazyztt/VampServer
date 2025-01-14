@@ -26,20 +26,7 @@ class TaskService {
 
       // Итерация по задачам из TaskAll
       for (const task of allTasks) {
-        if (userTasksMap[task.title]) {
-          // Если задача уже есть у пользователя, проверяем и обновляем изменения
-          const existingTask = userTasksMap[task.title];
-          if (
-            existingTask.link !== task.link ||
-            existingTask.isProgress !== task.isProgress ||
-            existingTask.isCompleted !== task.isCompleted
-          ) {
-            await existingTask.update({
-              link: task.link,
-            });
-          }
-        } else {
-          // Если задачи нет у пользователя, создаем новую
+        if (!userTasksMap[task.title]) {
           await Task.create({
             mainTaskId: task.id,
             title: task.title,
