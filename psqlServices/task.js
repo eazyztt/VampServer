@@ -36,8 +36,6 @@ class TaskService {
           ) {
             await existingTask.update({
               link: task.link,
-              isProgress: task.isProgress,
-              isCompleted: task.isCompleted,
             });
           }
         } else {
