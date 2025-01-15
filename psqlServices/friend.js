@@ -24,8 +24,8 @@ class FriendService {
 
     // Добавляем друга, если его ещё нет в списке друзей
     await user.addFriend(friend);
-    user.invitedFriends += 1; // логика инвайта
-    user.earnedPoint += 500;
+    user.friendsInvited += 1; // логика инвайта
+    user.money += 500;
     await user.save(); // логика инвайта
 
     console.log(

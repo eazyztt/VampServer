@@ -7,7 +7,7 @@ const VampStatus = require("../psqlServices/tamagochi");
 const UserService = require("../psqlServices/user");
 const FriendService = require("../psqlServices/friend");
 
-router.get("/", async (req, res) => {
+router.get("/home", async (req, res) => {
   const user = await UserService.getFullUser(req.tgId);
 
   const userForClient = {
@@ -42,7 +42,7 @@ router.post("/sex", async (req, res) => {
   }
 });
 
-router.get("/start", async (req, res) => {
+router.get("/", async (req, res) => {
   // поменять ссылку!
   const id = req.query.startApp;
   const user = await VampStatus.updateStatus(req.tgId);
@@ -56,7 +56,8 @@ router.get("/start", async (req, res) => {
     });
     await FriendService.addUniqueFriend(id, req.tgId);
   }
-  res.redirect("/");
+  //res.redirect("/");
+  res.redirect("/home");
 });
 
 router.get("/ref", async (req, res) => {
