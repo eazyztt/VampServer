@@ -61,7 +61,7 @@ class FriendService {
         throw new Error("No user");
       }
       if (user.earned > 0) {
-        user.money = user.earned;
+        user.money += user.earned;
         user.earned = 0;
         await user.save();
       }
