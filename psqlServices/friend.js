@@ -63,6 +63,7 @@ class FriendService {
       if (user.earned > 0) {
         user.money = user.earned;
         user.earned = 0;
+        await user.save();
       }
       return {
         msg: "Success",
