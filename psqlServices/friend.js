@@ -25,7 +25,7 @@ class FriendService {
     // Добавляем друга, если его ещё нет в списке друзей
     await user.addFriend(friend);
     user.friendsInvited += 1; // логика инвайта
-    user.money += 500;
+    user.earned += 500;
     await user.save(); // логика инвайта
 
     console.log(
@@ -51,6 +51,25 @@ class FriendService {
       };
     } catch (e) {
       return false;
+    }
+  }
+
+  static async claimFromInvites(userId) {
+    try {
+      const user = await User.findOne({ where: { telegramId: userId } });
+      if (!user) {
+        throw new Error("No user");
+      }
+      if (user.earned > 0) {
+        user.money = user.earned;
+        user.earned = 0;
+      }
+      return {
+        msg: "Success",
+        money: user.money,
+      };
+    } catch (err) {
+      return err;
     }
   }
 }

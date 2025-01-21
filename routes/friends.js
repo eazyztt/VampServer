@@ -8,16 +8,16 @@ router.get("/", async (req, res) => {
     const friends = await FriendService.getFriendsFunc(req.tgId);
     return res.status(200).json(friends);
   } catch (err) {
-    return res.status(400).send(err.message);
+    return res.status(400).send(err);
   }
 });
 
 router.post("/claim", async (req, res) => {
   try {
-    await UserService.claimMoneyFromInvites(req.tgId);
-    return res.send("Claimed!");
+    const claimed = await FriendService.claimFromInvites(req.tgId);
+    return res.json(claimed);
   } catch (e) {
-    return res.send(e.message);
+    return res.send(e);
   }
 });
 
