@@ -116,40 +116,40 @@ class UserService {
     return user;
   }
 
-  static async updateUserLvl(id) {
-    const user = await User.findByPk(id, {
-      include: [
-        {
-          model: Task,
-          as: "tasks",
-        },
-      ],
-    });
+  // static async updateUserLvl(id) {
+  //   const user = await User.findByPk(id, {
+  //     include: [
+  //       {
+  //         model: Task,
+  //         as: "tasks",
+  //       },
+  //     ],
+  //   });
 
-    if (!user) {
-      throw new Error("User not found");
-    }
+  //   if (!user) {
+  //     throw new Error("User not found");
+  //   }
 
-    // Задачи пользователя, совпадающие с уровнем
-    const userTasksMatchingLvl = user.tasks.filter(
-      (task) => task.lvl === user.lvl
-    );
+  //   // Задачи пользователя, совпадающие с уровнем
+  //   const userTasksMatchingLvl = user.tasks.filter(
+  //     (task) => task.lvl === user.lvl
+  //   );
 
-    // Все задачи, совпадающие с уровнем пользователя
-    const allTasks = await TaskService.getAllTasks();
-    const allTasksMatchingUserLvl = allTasks.filter(
-      (task) => task.lvl === user.lvl
-    );
+  //   // Все задачи, совпадающие с уровнем пользователя
+  //   const allTasks = await TaskService.getAllTasks();
+  //   const allTasksMatchingUserLvl = allTasks.filter(
+  //     (task) => task.lvl === user.lvl
+  //   );
 
-    // Проверяем, завершены ли все задачи текущего уровня
-    if (allTasksMatchingUserLvl.length === userTasksMatchingLvl.length) {
-      user.lvl += 1;
-      await user.save();
-      return user.lvl;
-    } else {
-      return false;
-    }
-  }
+  //   // Проверяем, завершены ли все задачи текущего уровня
+  //   if (allTasksMatchingUserLvl.length === userTasksMatchingLvl.length) {
+  //     user.lvl += 1;
+  //     await user.save();
+  //     return user.lvl;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   static async updateUserLevel(userId) {
     try {
@@ -164,7 +164,7 @@ class UserService {
       const { lvl, money } = user;
       let completedTasksCount;
 
-      if (lvl === 1 && money >= 10000) {
+      if (lvl === 1 && money >= 1000) {
         // Проверяем выполненные задачи уровня 1
         completedTasksCount = await Task.count({
           where: {
@@ -175,13 +175,13 @@ class UserService {
         });
 
         // Если выполнено 4 задачи уровня 1, обновляем уровень на 2
-        if (completedTasksCount >= 4) {
+        if (completedTasksCount >= 3) {
           await user.update({ lvl: 2 });
           console.log(`Пользователь ${userId} повысил уровень с 1 до 2.`);
         }
       }
 
-      if (lvl === 2 && money >= 25000) {
+      if (lvl === 2 && money >= 2000) {
         // Проверяем выполненные задачи уровня 2
         completedTasksCount = await Task.count({
           where: {
@@ -192,13 +192,13 @@ class UserService {
         });
 
         // Если выполнено 3 задачи уровня 2, обновляем уровень на 3
-        if (completedTasksCount >= 3) {
+        if (completedTasksCount >= 2) {
           await user.update({ lvl: 3 });
           console.log(`Пользователь ${userId} повысил уровень с 2 до 3.`);
         }
       }
 
-      if (lvl === 3 && money >= 50000) {
+      if (lvl === 3 && money >= 3000) {
         // Проверяем выполненные задачи уровня 3
         completedTasksCount = await Task.count({
           where: {
