@@ -214,6 +214,7 @@ class UserService {
           console.log(`Пользователь ${userId} повысил уровень с 3 до 4.`);
         }
       }
+      await user.save();
       return user;
     } catch (error) {
       console.error("Ошибка при обновлении уровня пользователя:", error);
