@@ -152,9 +152,13 @@ class UserService {
   // }
 
   static async updateUserLevel(userId) {
+    console.log("this is our appppp");
+
     try {
       // Находим пользователя по ID
-      const user = await User.findByPk(userId);
+      const user = await User.findOne({
+        where: { telegramId: userId },
+      });
 
       if (!user) {
         console.log(`Пользователь с ID ${userId} не найден.`);
@@ -165,6 +169,8 @@ class UserService {
       let completedTasksCount;
 
       if (lvl === 1 && money >= 1000) {
+        console.log("stop here");
+
         // Проверяем выполненные задачи уровня 1
         completedTasksCount = await Task.count({
           where: {
@@ -173,6 +179,7 @@ class UserService {
             isCompleted: true,
           },
         });
+        console.log(completedTasksCount);
 
         // Если выполнено 4 задачи уровня 1, обновляем уровень на 2
         if (completedTasksCount >= 3) {
@@ -214,7 +221,6 @@ class UserService {
           console.log(`Пользователь ${userId} повысил уровень с 3 до 4.`);
         }
       }
-      await user.save();
       return user;
     } catch (error) {
       console.error("Ошибка при обновлении уровня пользователя:", error);

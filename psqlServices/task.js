@@ -40,7 +40,9 @@ class TaskService {
       }
 
       // Возвращаем обновленный список задач пользователя
-      const updatedUserTasks = await Task.findAll({ where: { userId } });
+      const updatedUserTasks = await Task.findAll({
+        where: { userId, lvl: user.lvl },
+      });
 
       return {
         tasks: updatedUserTasks,

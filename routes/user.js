@@ -76,9 +76,9 @@ router.post("/claim", async (req, res) => {
 });
 
 router.post("/updateLvl", async (req, res) => {
-  const id = req.session.id;
+  const id = req.tgId;
   try {
-    const userLvlUpdate = await userService.updateUserLvl(id);
+    const userLvlUpdate = await userService.updateUserLevel(id);
     return res.send(userLvlUpdate);
   } catch (e) {
     return res.send(e);
