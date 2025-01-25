@@ -60,6 +60,11 @@ router.get("/", async (req, res) => {
   res.redirect("/home");
 });
 
+router.get("/ref", async (req, res) => {
+  const hash = `t.me/vamp_pump_bot/?startApp=${req.tgId}`;
+  return res.json({ hash: hash });
+});
+
 router.post("/claim", async (req, res) => {
   const id = req.session.id;
   const user = await userService.claimMoney(id);
