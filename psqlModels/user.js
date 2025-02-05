@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../psqlDb");
+const UserFriends = require("./userFriends");
 
 const User = sequelize.define(
   "User",
@@ -103,7 +104,7 @@ const User = sequelize.define(
 // Ассоциация Friends, где один User может иметь много приглашенных друзей (также User)
 User.belongsToMany(User, {
   as: "Friends", // название для доступа к друзьям
-  through: "UserFriends", // промежуточная таблица
+  through: UserFriends, // промежуточная таблица
   foreignKey: "userId", // FK пользователя, у которого есть друзья
   otherKey: "friendId", // FK друга
 });
