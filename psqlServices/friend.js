@@ -50,7 +50,13 @@ class FriendService {
       });
 
       // Если нет связей, возвращаем пустой массив
-      if (!friendRelations.length) return [];
+      if (!friendRelations.length)
+        return {
+          friends: [],
+          friendsInvited: user.friendsInvited,
+          earned: user.earned,
+          place: user.place,
+        };
 
       // 2. Собираем все friendId из связей
       const friendIds = friendRelations.map((rel) => rel.friendId);
