@@ -122,10 +122,10 @@ class VampStatus {
     if (user.lvl === 1) {
       experience = 100;
     } else if (user.lvl === 2) {
-      experience = 200;
+      experience = 150;
     } else if (user.lvl === 3) {
-      experience = 300;
-    } else if (user.lvl === 4) {
+      experience = 200;
+    } else if (user.lvl >= 4) {
       experience = 400;
     }
 

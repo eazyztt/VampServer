@@ -116,44 +116,7 @@ class UserService {
     return user;
   }
 
-  // static async updateUserLvl(id) {
-  //   const user = await User.findByPk(id, {
-  //     include: [
-  //       {
-  //         model: Task,
-  //         as: "tasks",
-  //       },
-  //     ],
-  //   });
-
-  //   if (!user) {
-  //     throw new Error("User not found");
-  //   }
-
-  //   // Задачи пользователя, совпадающие с уровнем
-  //   const userTasksMatchingLvl = user.tasks.filter(
-  //     (task) => task.lvl === user.lvl
-  //   );
-
-  //   // Все задачи, совпадающие с уровнем пользователя
-  //   const allTasks = await TaskService.getAllTasks();
-  //   const allTasksMatchingUserLvl = allTasks.filter(
-  //     (task) => task.lvl === user.lvl
-  //   );
-
-  //   // Проверяем, завершены ли все задачи текущего уровня
-  //   if (allTasksMatchingUserLvl.length === userTasksMatchingLvl.length) {
-  //     user.lvl += 1;
-  //     await user.save();
-  //     return user.lvl;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
   static async updateUserLevel(userId) {
-    console.log("this is our appppp");
-
     try {
       // Находим пользователя по ID
       const user = await User.findOne({
@@ -186,7 +149,7 @@ class UserService {
       if (lvl === 1 && money >= 1000) {
         // Если выполнено 4 задачи уровня 1, обновляем уровень на 2
         if (completedTasksCount === allTasksCount) {
-          await user.update({ lvl: 2 });
+          await user.update({ lvl: 2, exp: 12500 });
           console.log(`Пользователь ${userId} повысил уровень с 1 до 2.`);
         }
       }
@@ -194,7 +157,7 @@ class UserService {
       if (lvl === 2 && money >= 2500) {
         // Если выполнено 4 задачи уровня 1, обновляем уровень на 2
         if (completedTasksCount === allTasksCount) {
-          await user.update({ lvl: 3 });
+          await user.update({ lvl: 3, exp: 25000 });
           console.log(`Пользователь ${userId} повысил уровень с 1 до 2.`);
         }
       }
@@ -202,7 +165,7 @@ class UserService {
       if (lvl === 3 && money >= 4000) {
         // Если выполнено 4 задачи уровня 1, обновляем уровень на 2
         if (completedTasksCount === allTasksCount) {
-          await user.update({ lvl: 4 });
+          await user.update({ lvl: 4, exp: 50000 });
           console.log(`Пользователь ${userId} повысил уровень с 1 до 2.`);
         }
       }

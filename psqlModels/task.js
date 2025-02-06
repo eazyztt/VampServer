@@ -1,6 +1,7 @@
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../psqlDb");
 const User = require("./user"); // Подключаем модель User для создания связи
+const TaskAll = require("./taskForAll");
 
 const Task = sequelize.define(
   "Task",
@@ -31,6 +32,14 @@ const Task = sequelize.define(
       references: {
         model: User,
         key: "telegramId",
+      },
+    },
+    taskId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: TaskAll,
+        key: "id",
       },
     },
   },

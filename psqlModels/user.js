@@ -76,7 +76,7 @@ const User = sequelize.define(
     },
     exp: {
       type: DataTypes.INTEGER,
-      defaultValue: 0,
+      defaultValue: 7500,
     },
     sex: {
       type: DataTypes.STRING,

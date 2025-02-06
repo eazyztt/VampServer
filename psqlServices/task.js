@@ -28,7 +28,7 @@ class TaskService {
       for (const task of allTasks) {
         if (!userTasksMap[task.title]) {
           await Task.create({
-            mainTaskId: task.id,
+            taskId: task.id,
             title: task.title,
             link: task.link,
             lvl: task.lvl,
@@ -49,7 +49,7 @@ class TaskService {
         lvl: user.lvl,
         sex: user.sex,
         points: user.money,
-        finalPoints: 2000,
+        finalPoints: user.exp,
       };
     } catch (error) {
       console.error("Ошибка при синхронизации задач:", error);
@@ -60,25 +60,23 @@ class TaskService {
   // Обновление статуса задачи на isProgress = true
   static async markTaskInProgress(taskId, userId) {
     console.log(`this is task id ${taskId}`);
-    if (taskId === 432467) {
+    if (taskId == 432467) {
       const user = await User.findOne({ where: { telegramId: userId } });
-      if (user.friendsInvited !== 1) {
+      if (user.friendsInvited < 1) {
         return { success: false, message: "Условия не выполнены." };
       }
     }
-    if (taskId === 434890) {
+    if (taskId == 434890) {
       const user = await User.findOne({ where: { telegramId: userId } });
-      if (user.friendsInvited !== 3) {
+      if (user.friendsInvited < 3) {
         return { success: false, message: "Условия не выполнены." };
       }
     }
     try {
       // Находим задачу пользователя
       const task = await Task.findOne({
-        where: { id: taskId, userId: userId },
+        where: { taskId: taskId, userId: userId },
       });
-
-      console.log(`this is our task ${task}`);
 
       if (!task) {
         return { success: false, message: "Задача не найдена." };
