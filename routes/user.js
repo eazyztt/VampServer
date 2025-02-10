@@ -54,8 +54,12 @@ router.get("/", async (req, res) => {
       money: 1000,
       readyToClaim: true,
     });
+    console.log("code before func");
     await FriendService.addUniqueFriend(id, req.tgId);
+    console.log("code after func");
   }
+  console.log("this is code below");
+
   //res.redirect("/");
   res.redirect("/home");
 });
