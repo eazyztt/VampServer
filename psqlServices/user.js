@@ -6,8 +6,7 @@ const TaskService = require("../psqlServices/task"); // Импортируем �
 class UserService {
   static async create(data) {
     try {
-      const user = await User.create(data);
-      return user;
+      await User.create(data);
     } catch (error) {
       console.error("Error creating user:", error);
       throw error;
