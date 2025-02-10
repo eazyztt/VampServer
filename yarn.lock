@@ -474,6 +474,11 @@
     teeny-request "^9.0.0"
     uuid "^8.0.0"
 
+"@grammyjs/types@3.18.0":
+  version "3.18.0"
+  resolved "https://registry.npmjs.org/@grammyjs/types/-/types-3.18.0.tgz"
+  integrity sha512-/VpQcT6Z0+Lw6H6jv2JvnDmqB1/9rjbFdDBlPBPUW3kQ1bWfjzfaiVk2+J2eiid3o3sLaPp3ZK0XjEI1gWNc3g==
+
 "@grpc/grpc-js@^1.10.9":
   version "1.10.9"
   resolved "https://registry.npmjs.org/@grpc/grpc-js/-/grpc-js-1.10.9.tgz"
@@ -1807,6 +1812,16 @@ gopd@^1.0.1:
   integrity sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==
   dependencies:
     get-intrinsic "^1.1.3"
+
+grammy@^1.34.1:
+  version "1.34.1"
+  resolved "https://registry.npmjs.org/grammy/-/grammy-1.34.1.tgz"
+  integrity sha512-0ypt5d1bna8CqSANlDCg2ce1sx87oDm9gjyPRHWYpAgvjy3WYW9oEmMllAYCWCZ3vHDULW5x14jBMXai51ar0Q==
+  dependencies:
+    "@grammyjs/types" "3.18.0"
+    abort-controller "^3.0.0"
+    debug "^4.3.4"
+    node-fetch "^2.7.0"
 
 gtoken@^7.0.0:
   version "7.1.0"

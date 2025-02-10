@@ -4,6 +4,7 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const app = express();
 const userRoute = require("./routes/user");
+const paymentsRoute = require("./routes/payments");
 const tasks = require("./routes/userTasks");
 const friends = require("./routes/friends");
 const tgData = require("./routes/tgData");
@@ -85,6 +86,8 @@ app.use(verifyAuth);
 app.use("/telegram-data", tgData);
 
 app.use("/", deadVamp, userRoute);
+
+app.use("/", deadVamp, paymentsRoute);
 
 app.use("/tasks", deadVamp, tasks);
 
