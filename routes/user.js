@@ -47,6 +47,8 @@ router.get("/", async (req, res) => {
   const id = req.query.startApp;
   const user = await VampStatus.updateStatus(req.tgId);
 
+  console.log(`this is our user ${user}`);
+
   if (!user || user == null) {
     await UserService.create({
       username: req.username,
