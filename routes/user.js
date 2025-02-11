@@ -46,6 +46,7 @@ router.get("/", async (req, res) => {
   // поменять ссылку!
   const id = req.query.startApp;
   console.log(req.tgId);
+  console.log(req.query.startApp);
 
   const user = await VampStatus.updateStatus(req.tgId);
 
@@ -65,7 +66,7 @@ router.get("/", async (req, res) => {
   console.log("this is code below");
 
   //res.redirect("/");
-  res.send(user);
+  res.send("/home");
 });
 
 router.get("/ref", async (req, res) => {
