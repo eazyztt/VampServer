@@ -5,7 +5,7 @@ const User = require("../psqlModels/user"); // Импортируем модел
 
 class VampStatus {
   static async updateStatus(id) {
-    const user = await User.findByPk(id);
+    const user = await User.findOne({ where: { telegramId: id } });
 
     console.log(`${typeof user} this is super bool`);
 
