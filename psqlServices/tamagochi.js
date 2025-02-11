@@ -7,7 +7,7 @@ class VampStatus {
   static async updateStatus(id) {
     const user = await User.findOne({ where: { telegramId: id } });
 
-    if (!user.id || user.id === null) {
+    if (!user || user == null) {
       return false;
     }
 
