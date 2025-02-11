@@ -7,7 +7,7 @@ class VampStatus {
   static async updateStatus(id) {
     const user = await User.findByPk(id);
 
-    console.log(`${typeof user === false} this is super bool`);
+    console.log(`${typeof user} this is super bool`);
 
     if (!user || user === null) {
       return false;
