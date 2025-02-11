@@ -50,6 +50,8 @@ router.get("/", async (req, res) => {
   console.log(`this is our user ${user}`);
 
   if (!user || user == null) {
+    console.log("w");
+
     await UserService.create({
       username: req.username,
       telegramId: req.tgId,
