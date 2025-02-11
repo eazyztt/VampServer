@@ -47,7 +47,9 @@ router.get("/", async (req, res) => {
   const id = req.query.startApp;
   const user = await VampStatus.updateStatus(req.tgId);
 
-  console.log(`this is our user ${user}`);
+  console.log(`this is our user JSON ${user.toJSON()}`);
+
+  console.log(`this is our user ${typeof user}`);
 
   if (!user || user == null) {
     console.log("w");
