@@ -49,11 +49,7 @@ router.get("/", async (req, res) => {
 
   const user = await VampStatus.updateStatus(req.tgId);
 
-  console.log(`this is our user JSON ${user.toJSON()}`);
-
-  console.log(`this is our user ${typeof user}`);
-
-  if (!user || user == null) {
+  if (!user) {
     console.log("w");
 
     await UserService.create({
