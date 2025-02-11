@@ -7,7 +7,7 @@ class VampStatus {
   static async updateStatus(id) {
     const user = await User.findOne({ where: { telegramId: id } });
 
-    console.log(`${typeof user} this is super bool`);
+    console.log(`${user.id} this is super bool`);
 
     if (!user || user === null) {
       return false;
