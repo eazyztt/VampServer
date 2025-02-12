@@ -66,7 +66,7 @@ router.get("/", async (req, res) => {
   console.log("this is code below");
 
   //res.redirect("/");
-  res.send("/home");
+  res.send(user);
 });
 
 router.get("/ref", async (req, res) => {
