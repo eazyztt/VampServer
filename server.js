@@ -52,7 +52,7 @@ app.use(
 const verifyAuth = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const auth2 = req.headers["auth2"];
-  console.log(JSON.stringify(auth2));
+  console.log("Объект:", JSON.stringify(auth2, null, 2), typeof auth2);
 
   console.log(`${authHeader} this is auth header`);
 
