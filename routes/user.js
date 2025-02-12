@@ -46,7 +46,7 @@ router.get("/", async (req, res) => {
   // поменять ссылку!
   const id = req.query.startApp;
   console.log(req.tgId);
-  console.log(req.query.startApp);
+  console.log(req.query);
 
   const user = await VampStatus.updateStatus(req.tgId);
 
