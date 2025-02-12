@@ -42,7 +42,7 @@ router.post("/sex", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/start", async (req, res) => {
   // поменять ссылку!
   const id = req.query.startApp;
   console.log(req.tgId);
