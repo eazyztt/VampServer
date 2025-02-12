@@ -51,10 +51,8 @@ app.use(
 
 const verifyAuth = (req, res, next) => {
   const authHeader = req.headers["authorization"];
-  const unsafe = req.headers["Query"];
-  console.log(unsafe);
-  //console.log(unsafe.toJSON());
-  //console.log(unsafe.query_id);
+  const auth2 = req.headers["auth2"];
+  console.log(auth2);
 
   console.log(`${authHeader} this is auth header`);
 
