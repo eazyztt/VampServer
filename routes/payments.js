@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.post("/vip/:count", async (req, res) => {
   const count = req.params["count"];
-  const title = "Test Product";
-  const description = "Test description";
+  const title = "VAMP";
+  const description = "Support us and we will support you";
   const payload = "{}";
   const currency = "XTR";
   const prices = [{ amount: count, label: "Vamp" }];
@@ -21,8 +21,13 @@ router.post("/vip/:count", async (req, res) => {
     currency,
     prices
   );
+  console.log(link);
 
   res.json({ link });
+});
+
+router.post("/vipSuccess/:count", async (req, res) => {
+  const count = req.params["count"];
 });
 
 module.exports = router;
