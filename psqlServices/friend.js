@@ -4,6 +4,9 @@ const UserFriends = require("../psqlModels/userFriends");
 class FriendService {
   // Функция для добавления друга
   static async addUniqueFriend(userId, friendId) {
+    if (user == friendId) {
+      return;
+    }
     // Находим пользователя и друга по их telegramId
     const user = await User.findOne({ where: { telegramId: userId } });
     const friend = await User.findOne({ where: { telegramId: friendId } });
