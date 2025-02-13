@@ -33,6 +33,8 @@ class FriendService {
     console.log(
       `${friend.username} успешно добавлен в друзья ${user.username}`
     );
+
+    return friend;
   }
 
   // Функция для получения списка друзей пользователя
