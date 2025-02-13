@@ -5,12 +5,13 @@ const bot = new Bot(process.env.TG_KEY);
 
 const router = express.Router();
 
-router.post("/generate-invoice", async (req, res) => {
+router.post("/vip/:count", async (req, res) => {
+  const count = req.params["count"];
   const title = "Test Product";
   const description = "Test description";
   const payload = "{}";
   const currency = "XTR";
-  const prices = [{ amount: 1, label: "Test Product" }];
+  const prices = [{ amount: count }];
 
   const invoiceLink = await bot.api.createInvoiceLink(
     title,
