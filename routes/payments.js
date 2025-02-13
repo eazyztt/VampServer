@@ -22,7 +22,7 @@ router.post("/vip/:count", async (req, res) => {
     prices
   );
 
-  res.json({ invoiceLink });
+  res.json({ link });
 });
 
 module.exports = router;
