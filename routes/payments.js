@@ -7,13 +7,11 @@ const router = express.Router();
 
 router.post("/vip/:count", async (req, res) => {
   const count = req.params["count"];
-  console.log(count);
-
   const title = "Test Product";
   const description = "Test description";
   const payload = "{}";
   const currency = "XTR";
-  const prices = [{ amount: count }];
+  const prices = [{ amount: count, label: "Vamp" }];
 
   const link = await bot.api.createInvoiceLink(
     title,
