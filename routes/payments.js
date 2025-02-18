@@ -24,7 +24,7 @@ router.post("/vip/:count", async (req, res) => {
   );
   console.log(link);
 
-  res.json({ link });
+  res.send({ link: link });
 });
 
 router.post("/vipSuccess/:count", async (req, res) => {
