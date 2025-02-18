@@ -84,19 +84,19 @@ const deadVamp = (req, res, next) => {
 
 // Используем body-parser для парсинга JSON запросов
 
-app.use(verifyAuth);
+//app.use(verifyAuth);
 
 app.use("/telegram-data", tgData);
 
-app.use("/", deadVamp, userRoute);
+app.use("/", deadVamp, verifyAuth, userRoute);
 
 app.use("/", paymentsRoute);
 
-app.use("/tasks", deadVamp, tasks);
+app.use("/tasks", deadVamp, verifyAuth, tasks);
 
-app.use("/friends", deadVamp, friends);
+app.use("/friends", deadVamp, verifyAuth, friends);
 
-app.use("/", deadVamp, tamagochi);
+app.use("/", deadVamp, verifyAuth, tamagochi);
 
 //app.use("/auth", authRouter);
 
