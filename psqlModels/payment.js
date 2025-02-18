@@ -9,13 +9,13 @@ const Payment = sequelize.define(
       type: DataTypes.STRING,
       primaryKey: true,
     },
-    amount: {
+    total_amount: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    status: {
+    telegram_payment_charge_id: {
       type: DataTypes.STRING,
-      defaultValue: "Pending",
+      allowNull: false,
     },
     userId: {
       type: DataTypes.STRING,

@@ -1,6 +1,7 @@
 const express = require("express");
 const { Bot } = require("grammy");
 const axios = require("axios");
+const Payment = require("../psqlModels/payment");
 
 const bot = new Bot(process.env.TG_KEY);
 
@@ -52,6 +53,11 @@ router.post("/payment/webhook", async (req, res) => {
   if (update.message && update.message.successful_payment) {
     const payment = update.message.successful_payment;
     console.log("✅ Платёж успешен:", payment);
+    await Payment.create({
+      total_amount: payment.total_amount,
+      telegram_payment_charge_id: payment.telegram_payment_charge_id,
+      userId: update.message.from.id,
+    });
     // Тут логика, что делать после успешной оплаты
   }
 
