@@ -5,10 +5,6 @@ const User = require("./user"); // Подключаем модель User для
 const Payment = sequelize.define(
   "Payment",
   {
-    order_id: {
-      type: DataTypes.STRING,
-      primaryKey: true,
-    },
     total_amount: {
       type: DataTypes.INTEGER,
       allowNull: false,
