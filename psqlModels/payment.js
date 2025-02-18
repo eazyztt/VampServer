@@ -3,7 +3,7 @@ const sequelize = require("../psqlDb");
 const User = require("./user"); // Подключаем модель User для создания связи
 
 const Payment = sequelize.define(
-  "Task",
+  "Payment",
   {
     order_id: {
       type: DataTypes.STRING,
@@ -11,7 +11,7 @@ const Payment = sequelize.define(
     },
     amount: {
       type: DataTypes.INTEGER,
-      defaultValue: false,
+      allowNull: false,
     },
     status: {
       type: DataTypes.STRING,

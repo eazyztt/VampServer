@@ -29,6 +29,7 @@ router.post("/vip/:count", async (req, res) => {
 
 router.post("/vipSuccess/:count", async (req, res) => {
   const count = req.params["count"];
+  res.send({ count: count });
 });
 
 router.post("/payment/webhook", async (req, res) => {
