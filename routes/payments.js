@@ -34,6 +34,7 @@ router.post("/vipSuccess/:count", async (req, res) => {
 
 router.post("/payment/webhook", async (req, res) => {
   const update = req.body; // JSON с данными от Telegram
+  console.log("📩 Получено обновление от Telegram:", update);
 
   // Обработка pre_checkout_query
   if (update.pre_checkout_query) {
