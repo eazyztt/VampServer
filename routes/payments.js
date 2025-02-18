@@ -53,11 +53,15 @@ router.post("/payment/webhook", async (req, res) => {
   if (update.message && update.message.successful_payment) {
     const payment = update.message.successful_payment;
     console.log("✅ Платёж успешен:", payment);
-    await Payment.create({
-      total_amount: payment.total_amount,
-      telegram_payment_charge_id: payment.telegram_payment_charge_id,
-      userId: update.message.from.id,
-    });
+    try {
+      await Payment.create({
+        total_amount: payment.total_amount,
+        telegram_payment_charge_id: payment.telegram_payment_charge_id,
+        userId: update.message.from.id,
+      });
+    } catch (e) {
+      console.log(`Payment error🤨🤨 ${e}`);
+    }
     // Тут логика, что делать после успешной оплаты
   }
 
