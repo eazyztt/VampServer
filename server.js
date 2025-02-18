@@ -50,6 +50,9 @@ app.use(
 );
 
 const verifyAuth = (req, res, next) => {
+  if (req.path === "/payment/webhook") {
+    return next(); // Пропускаем проверку авторизации для Webhook
+  }
   const authHeader = req.headers["authorization"];
   const auth2 = req.headers["auth2"];
   console.log(auth2);
