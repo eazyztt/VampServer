@@ -33,30 +33,29 @@ router.post("/vipSuccess/:count", async (req, res) => {
 });
 
 router.post("/payment/webhook", async (req, res) => {
-  const update = req.body; // JSON с данными от Telegram
+  const update = req.body;
   console.log("📩 Получено обновление от Telegram:", update);
 
-  // Обработка pre_checkout_query
   if (update.pre_checkout_query) {
-    await axios.post(
-      `https://api.telegram.org/bot${process.env.TG_KEY}/answerPreCheckoutQuery`,
-      {
-        pre_checkout_query_id: update.pre_checkout_query.id,
-        ok: true,
-      }
-    );
+    try {
+      await axios.post(
+        `https://api.telegram.org/bot${process.env.TG_KEY}/answerPreCheckoutQuery`,
+        { pre_checkout_query_id: update.pre_checkout_query.id, ok: true }
+      );
+      console.log("✅ Pre-checkout подтверждён.");
+    } catch (error) {
+      console.error("❌ Ошибка pre_checkout:", error);
+      return res.sendStatus(500);
+    }
   }
 
-  // Обработка успешного платежа
   if (update.message && update.message.successful_payment) {
     const payment = update.message.successful_payment;
     console.log("✅ Платёж успешен:", payment);
-  } else {
-    console.log("Very big error");
-    return res.sendStatus(500);
+    // Тут логика, что делать после успешной оплаты
   }
 
-  res.sendStatus(200); // Telegram ожидает ответ 200 OK
+  res.sendStatus(200); // Telegram ожидает 200 OK
 });
 
 module.exports = router;
