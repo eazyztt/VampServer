@@ -50,6 +50,9 @@ router.post("/payment/webhook", async (req, res) => {
   if (update.message && update.message.successful_payment) {
     const payment = update.message.successful_payment;
     console.log("✅ Платёж успешен:", payment);
+  } else {
+    console.log("Very big error");
+    return res.sendStatus(500);
   }
 
   res.sendStatus(200); // Telegram ожидает ответ 200 OK
