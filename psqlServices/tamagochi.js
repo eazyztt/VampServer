@@ -45,8 +45,8 @@ class VampStatus {
     }
 
     if (
-      now - user.lastFed > eightHoursInMs &&
-      user.lastFed > new Date("2005-09-02T20:00:00Z")
+      now - user.lastPlayed > eightHoursInMs &&
+      user.lastPlayed > new Date("2005-09-02T20:00:00Z")
     ) {
       user.isBored = true;
     }
@@ -54,7 +54,7 @@ class VampStatus {
     // Проверка времени мытья
     if (
       now - user.lastWashed > eightHoursInMs &&
-      user.lastFed > new Date("2005-09-02T20:00:00Z")
+      user.lastWashed > new Date("2005-09-02T20:00:00Z")
     ) {
       user.isDirty = true;
     }
@@ -62,7 +62,7 @@ class VampStatus {
     // Проверка времени сна
     if (
       now - user.lastSlept > eightHoursInMs &&
-      user.lastFed > new Date("2005-09-02T20:00:00Z")
+      user.lastSlept > new Date("2005-09-02T20:00:00Z")
     ) {
       user.isTired = true;
     }
@@ -94,6 +94,10 @@ class VampStatus {
       experience = 300;
     } else if (user.lvl === 4) {
       experience = 400;
+    }
+
+    if (user.premiumDays > new Date()) {
+      experience * 2;
     }
 
     user.lastFed = new Date();
@@ -128,6 +132,10 @@ class VampStatus {
       experience = 400;
     }
 
+    if (user.premiumDays > new Date()) {
+      experience * 2;
+    }
+
     user.lastWashed = new Date();
     user.isDirty = false;
     user.money += experience;
@@ -160,6 +168,10 @@ class VampStatus {
       experience = 400;
     }
 
+    if (user.premiumDays > new Date()) {
+      experience * 2;
+    }
+
     user.lastSlept = new Date();
     user.isTired = false;
     user.money += experience;
@@ -190,6 +202,10 @@ class VampStatus {
       experience = 300;
     } else if (user.lvl === 4) {
       experience = 400;
+    }
+
+    if (user.premiumDays > new Date()) {
+      experience * 2;
     }
 
     user.lastPlayed = new Date();

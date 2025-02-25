@@ -30,9 +30,9 @@ const User = sequelize.define(
       type: DataTypes.DATE,
       defaultValue: new Date(2005, 8, 2),
     },
-    moneyForClaim: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
+    premiumDays: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(2005, 8, 2),
     },
     lvl: {
       type: DataTypes.INTEGER,
@@ -93,6 +93,10 @@ const User = sequelize.define(
     place: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
+    },
+    deathTimes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
     },
   },
   {
