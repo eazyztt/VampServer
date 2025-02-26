@@ -23,27 +23,30 @@ router.get("/start", async (req, res) => {
   // поменять ссылку!
   const id = req.query.startApp;
   const user = await VampStatus.updateStatus(req.tgId);
+  console.log(`this is ouuuuuur ${id}`);
 
-  if (!user && id) {
+  if (!user) {
     await UserService.create({
       username: req.username,
       telegramId: req.tgId,
       money: 1000,
       readyToClaim: true,
     });
-    const userFriend = await FriendService.addUniqueFriend(id, req.tgId);
-    const userForClient = {
-      username: userFriend.username,
-      money: userFriend.money,
-      lvl: userFriend.lvl,
-      isHungry: userFriend.isHungry,
-      isTired: userFriend.isTired,
-      isDirty: userFriend.isDirty,
-      isDead: userFriend.isDead,
-      isBored: userFriend.isBored,
-      sex: userFriend.sex,
-    };
-    return res.send(userForClient);
+    if (id && id != "") {
+      const userFriend = await FriendService.addUniqueFriend(id, req.tgId);
+      const userForClient = {
+        username: userFriend.username,
+        money: userFriend.money,
+        lvl: userFriend.lvl,
+        isHungry: userFriend.isHungry,
+        isTired: userFriend.isTired,
+        isDirty: userFriend.isDirty,
+        isDead: userFriend.isDead,
+        isBored: userFriend.isBored,
+        sex: userFriend.sex,
+      };
+      return res.send(userForClient);
+    }
   }
 
   //res.redirect("/");
