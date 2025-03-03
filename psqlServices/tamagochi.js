@@ -133,7 +133,7 @@ class VampStatus {
     }
 
     if (user.premiumDays > new Date()) {
-      experience * 2;
+      experience *= 2;
     }
 
     user.lastWashed = new Date();

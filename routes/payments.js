@@ -100,9 +100,8 @@ router.post("/vip/res/:count", async (req, res) => {
 });
 
 router.post("/vipSuccess/res", async (req, res) => {
-  const count = req.params["count"];
   await premiumService.resurrect(req.tgId);
-  res.send({ count: count });
+  res.send({ success: true });
 });
 
 module.exports = router;
