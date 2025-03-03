@@ -6,6 +6,7 @@ const verifyInitData = require("../auth/auth");
 const VampStatus = require("../psqlServices/tamagochi");
 const UserService = require("../psqlServices/user");
 const FriendService = require("../psqlServices/friend");
+const { NOEXPAND } = require("sequelize/lib/table-hints");
 
 router.post("/sex", async (req, res) => {
   const { sex } = req.body;
@@ -32,8 +33,11 @@ router.get("/start", async (req, res) => {
       money: 1000,
       readyToClaim: true,
     });
-    if (id && id != "") {
+    if (id) {
       const userFriend = await FriendService.addUniqueFriend(id, req.tgId);
+      if (!userFriend) {
+        return res.send("error");
+      }
       const userForClient = {
         username: userFriend.username,
         money: userFriend.money,
