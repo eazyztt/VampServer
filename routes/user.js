@@ -6,7 +6,6 @@ const verifyInitData = require("../auth/auth");
 const VampStatus = require("../psqlServices/tamagochi");
 const UserService = require("../psqlServices/user");
 const FriendService = require("../psqlServices/friend");
-const { NOEXPAND } = require("sequelize/lib/table-hints");
 
 router.post("/sex", async (req, res) => {
   const { sex } = req.body;
@@ -51,6 +50,7 @@ router.get("/start", async (req, res) => {
       };
       return res.send(userForClient);
     }
+    return res.send(user);
   }
 
   //res.redirect("/");

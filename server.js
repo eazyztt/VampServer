@@ -54,8 +54,6 @@ const verifyAuth = (req, res, next) => {
     return next(); // Пропускаем проверку авторизации для Webhook
   }
   const authHeader = req.headers["authorization"];
-  const auth2 = req.headers["auth2"];
-  console.log(auth2);
 
   console.log(`${authHeader} this is auth header`);
 
@@ -93,7 +91,7 @@ app.use("/telegram-data", tgData);
 
 app.use("/", deadVamp, verifyAuth, userRoute);
 
-app.use("/", verifyAuth, paymentsRoute);
+app.use("/", paymentsRoute);
 
 app.use("/tasks", deadVamp, verifyAuth, tasks);
 
