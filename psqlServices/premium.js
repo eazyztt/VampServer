@@ -10,6 +10,8 @@ class Premium {
   }
 
   static async resurrect(userId) {
+    console.log("function is called");
+
     const user = await User.findOne({ where: { telegramId: userId } });
     const date = new Date();
     date.setHours(date.getHours() - 8);

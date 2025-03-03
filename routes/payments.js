@@ -100,6 +100,8 @@ router.post("/vip/res/:count", async (req, res) => {
 });
 
 router.post("/vipSuccess/res", async (req, res) => {
+  console.log("endpoint for res vipsuccess is working fine");
+
   await premiumService.resurrect(req.tgId);
   res.send({ success: true });
 });
