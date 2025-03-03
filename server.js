@@ -93,7 +93,7 @@ app.use("/telegram-data", tgData);
 
 app.use("/", deadVamp, verifyAuth, userRoute);
 
-app.use("/", paymentsRoute);
+app.use("/", verifyAuth, paymentsRoute);
 
 app.use("/tasks", deadVamp, verifyAuth, tasks);
 

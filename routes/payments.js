@@ -45,7 +45,7 @@ router.post("/vipSuccess/:count", async (req, res) => {
 
 router.post("/payment/webhook", async (req, res) => {
   const update = req.body;
-  console.log("📩 Получено обновление от Telegram:", update);
+  //console.log("📩 Получено обновление от Telegram:", update);
 
   if (update.pre_checkout_query) {
     try {
@@ -53,7 +53,7 @@ router.post("/payment/webhook", async (req, res) => {
         `https://api.telegram.org/bot${process.env.TG_KEY}/answerPreCheckoutQuery`,
         { pre_checkout_query_id: update.pre_checkout_query.id, ok: true }
       );
-      console.log("✅ Pre-checkout подтверждён.");
+      //console.log("✅ Pre-checkout подтверждён.");
     } catch (error) {
       console.error("❌ Ошибка pre_checkout:", error);
       return res.sendStatus(500);
@@ -62,7 +62,7 @@ router.post("/payment/webhook", async (req, res) => {
 
   if (update.message && update.message.successful_payment) {
     const payment = update.message.successful_payment;
-    console.log("✅ Платёж успешен:", payment);
+    //console.log("✅ Платёж успешен:", payment);
     try {
       await Payment.create({
         total_amount: payment.total_amount,
