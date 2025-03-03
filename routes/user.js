@@ -32,6 +32,7 @@ router.get("/start", async (req, res) => {
       money: 1000,
       readyToClaim: true,
     });
+    user = await VampStatus.updateStatus(req.tgId);
     if (id && typeof id !== "undefined" && id != "undefined") {
       const userFriend = await FriendService.addUniqueFriend(id, req.tgId);
       if (!userFriend) {
