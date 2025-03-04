@@ -22,7 +22,7 @@ router.post("/sex", async (req, res) => {
 router.get("/start", async (req, res) => {
   // поменять ссылку!
   const id = req.query.startApp;
-  const user = await VampStatus.updateStatus(req.tgId);
+  let user = await VampStatus.updateStatus(req.tgId);
   console.log(`this is ouuuuuur ${id}`);
 
   if (!user) {
