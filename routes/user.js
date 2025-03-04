@@ -26,13 +26,12 @@ router.get("/start", async (req, res) => {
   console.log(`this is ouuuuuur ${id}`);
 
   if (!user) {
-    await UserService.create({
+    user = await UserService.create({
       username: req.username,
       telegramId: req.tgId,
       money: 1000,
       readyToClaim: true,
     });
-    user = await VampStatus.updateStatus(req.tgId);
     if (id && typeof id !== "undefined" && id != "undefined") {
       const userFriend = await FriendService.addUniqueFriend(id, req.tgId);
       if (!userFriend) {
@@ -51,11 +50,11 @@ router.get("/start", async (req, res) => {
       };
       return res.send(userForClient);
     }
-    return res.send(user);
+    return res.json(user);
   }
 
   //res.redirect("/");
-  return res.send(user);
+  return res.json(user);
 });
 
 router.get("/ref", async (req, res) => {
