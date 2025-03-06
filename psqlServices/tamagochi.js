@@ -97,7 +97,7 @@ class VampStatus {
     }
 
     if (user.premiumDays > new Date()) {
-      experience * 2;
+      experience *= 2;
     }
 
     user.lastFed = new Date();
@@ -169,7 +169,7 @@ class VampStatus {
     }
 
     if (user.premiumDays > new Date()) {
-      experience * 2;
+      experience *= 2;
     }
 
     user.lastSlept = new Date();
@@ -205,7 +205,7 @@ class VampStatus {
     }
 
     if (user.premiumDays > new Date()) {
-      experience * 2;
+      experience *= 2;
     }
 
     user.lastPlayed = new Date();
