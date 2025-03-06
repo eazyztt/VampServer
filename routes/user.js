@@ -46,11 +46,25 @@ router.get("/start", async (req, res) => {
         isDirty: userFriend.isDirty,
         isDead: userFriend.isDead,
         isBored: userFriend.isBored,
+        premiumDays: userFriend.premiumDays,
+        deathTimes: userFriend.deathTimes,
         sex: userFriend.sex,
       };
       return res.send(userForClient);
     }
-    return res.json(user);
+    return res.json({
+      username: user.username,
+      money: user.money,
+      lvl: user.lvl,
+      isHungry: user.isHungry,
+      isTired: user.isTired,
+      isDirty: user.isDirty,
+      isDead: user.isDead,
+      isBored: user.isBored,
+      premiumDays: user.premiumDays,
+      deathTimes: user.deathTimes,
+      sex: user.sex,
+    });
   }
 
   //res.redirect("/");

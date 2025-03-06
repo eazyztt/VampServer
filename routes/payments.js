@@ -80,11 +80,13 @@ router.post("/payment/webhook", async (req, res) => {
 
 router.post("/vip/res/:count", async (req, res) => {
   const count = req.params["count"];
+  console.log(`deathTimes is here ${count}`);
+
   const title = "VAMP";
   const description = "Support us and we will support you";
   const payload = "{}";
   const currency = "XTR";
-  const prices = [{ amount: count, label: "Vamp" }];
+  const prices = [{ amount: 1, label: "Vamp" }];
 
   const link = await bot.api.createInvoiceLink(
     title,
