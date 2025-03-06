@@ -31,7 +31,7 @@ router.post("/vip/:count", async (req, res) => {
   res.send({ link: link });
 });
 
-router.post("/vipSuccess/:count", async (req, res) => {
+router.post("/vipSuccess/res/:count", async (req, res) => {
   const count = req.params["count"];
   if (count == 1) {
     await premiumService.addPremium(3, req.tgId);
@@ -83,10 +83,10 @@ router.post("/vip/res/:count", async (req, res) => {
   console.log(`deathTimes is here ${count}`);
 
   const title = "VAMP";
-  const description = "Support us and we will support you";
+  const description = "Support us and we will resurrect you";
   const payload = "{}";
   const currency = "XTR";
-  const prices = [{ amount: 1, label: "Vamp" }];
+  const prices = [{ amount: 1, label: "Vamp Res" }];
 
   const link = await bot.api.createInvoiceLink(
     title,
