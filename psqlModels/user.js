@@ -31,8 +31,8 @@ const User = sequelize.define(
       defaultValue: new Date(2005, 8, 2),
     },
     premiumDays: {
-      type: DataTypes.DATE,
-      defaultValue: new Date(2005, 8, 2),
+      type: DataTypes.STRING,
+      defaultValue: "No premium",
     },
     lvl: {
       type: DataTypes.INTEGER,
