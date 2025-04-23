@@ -61,7 +61,7 @@ router.get("/start", async (req, res) => {
       isDirty: user.isDirty,
       isDead: user.isDead,
       isBored: user.isBored,
-      premiumDays: user.premiumDays,
+      premiumDays: user.premiumDays ? user.premiumDays : null,
       deathTimes: user.deathTimes,
       sex: user.sex,
     });
