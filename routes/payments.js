@@ -33,11 +33,11 @@ router.post("/vip/:count", async (req, res) => {
 
 router.post("/vipSuccess/res/:count", async (req, res) => {
   const count = req.params["count"];
-  if (count == 1) {
+  if (count == 99) {
     await premiumService.addPremium(3, req.tgId);
-  } else if (count == 222) {
-    await premiumService.addPremium(7, req.tgId);
-  } else if (count == 888) {
+  } else if (count == 333) {
+    await premiumService.addPremium(9, req.tgId);
+  } else if (count == 999) {
     await premiumService.addPremium(33, req.tgId);
   }
   res.send({ count: count });
@@ -86,7 +86,7 @@ router.post("/vip/res/:count", async (req, res) => {
   const description = "Support us and we will resurrect you";
   const payload = "{}";
   const currency = "XTR";
-  const prices = [{ amount: 1, label: "Vamp Res" }];
+  const prices = [{ amount: 111, label: "Vamp Res" }];
 
   const link = await bot.api.createInvoiceLink(
     title,
